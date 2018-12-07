@@ -5,6 +5,13 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjZesp_Ate", "ProjZesp_Ate\ProjZesp_Ate.csproj", "{E73B6F08-09F0-40B4-9683-6D717626CD1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjZespClient", "ProjZespClient\ProjZespClient.csproj", "{9D1CAAEF-CE61-4818-A8C4-602F4B47517C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40648FC7-C8DA-44EE-94F4-B040849191E9}"
+	ProjectSection(SolutionItems) = preProject
+		Common\CommonTypes.cs = Common\CommonTypes.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,10 @@ Global
 		{E73B6F08-09F0-40B4-9683-6D717626CD1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E73B6F08-09F0-40B4-9683-6D717626CD1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E73B6F08-09F0-40B4-9683-6D717626CD1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D1CAAEF-CE61-4818-A8C4-602F4B47517C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D1CAAEF-CE61-4818-A8C4-602F4B47517C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D1CAAEF-CE61-4818-A8C4-602F4B47517C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D1CAAEF-CE61-4818-A8C4-602F4B47517C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
