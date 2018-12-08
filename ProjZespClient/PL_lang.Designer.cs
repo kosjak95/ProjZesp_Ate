@@ -61,6 +61,15 @@ namespace ProjZespClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Załóż konto!.
+        /// </summary>
+        internal static string createAcount {
+            get {
+                return ResourceManager.GetString("createAcount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proszę wprowadzić hasło.
         /// </summary>
         internal static string insertPswd {

@@ -54,9 +54,14 @@ namespace ProjZespClient
             this.infoToolTip.SetToolTip((TextBox)sender, Dict.GetString("insertPswd"));
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        private void LoginButton_Click(object sender, EventArgs e)
         {
             //TODO: LOGIN LOGIC
+        }
+
+        private void CreateAcountButton_Click(object sender, EventArgs e)
+        {
+            RegisterPanel.BringToFront();
         }
     }
 }

@@ -135,4 +135,7 @@
   <data name="welcome" xml:space="preserve">
     <value>Witaj!</value>
   </data>
+  <data name="createAcount" xml:space="preserve">
+    <value>Załóż konto!</value>
+  </data>
 </root>
