@@ -8,9 +8,9 @@ namespace ProjZesp_Ate.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public string Index()
         {
-            return View();
+            return "Server is running...";
         }
 
         public ActionResult About()
@@ -25,6 +25,12 @@ namespace ProjZesp_Ate.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        internal static bool TryCreateUserAccount(string userAccountCreateData)
+        {
+            int a = 0;
+            throw new NotImplementedException();
         }
     }
 }
