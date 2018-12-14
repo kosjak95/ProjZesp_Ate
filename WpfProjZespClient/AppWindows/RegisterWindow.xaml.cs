@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,8 +46,15 @@ namespace WpfProjZespClient.AppWindows
 
         private void AccountCreateButton_onClick(object sender, RoutedEventArgs e)
         {
-            MakePostRequest("TryCreateUserAccount/", "hello");
-            //TODO: validate date and user create
+            MakePostRequest("TryCreateUserAccount/", new UserAccountCreateData()
+            {
+                Name = nameTextBox.Text,
+                Surname = surnameTextBox.Text,
+                Email = emailTextBox.Text,
+                Adress = adressTextBox.Text,
+                Login = loginTextBox.Text,
+                Password = passwordTextBox.Password
+            });
         }
     }
 }

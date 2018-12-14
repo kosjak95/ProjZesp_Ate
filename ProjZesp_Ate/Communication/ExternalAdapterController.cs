@@ -7,17 +7,12 @@ namespace TechnikiInternetowe.Communication
     public class ExternalAdapterController : Controller
     {
         public ExternalAdapterController() { }
-        [HttpGet]
-        [Route("test")]
-        public string Index()
-        {
-            return "HelloWord";
-        }
 
         [HttpPost]
         [Route("TryCreateUserAccount")]
         public async Task<bool> PermissionOnCreateFile(string userAccountCreateData)
         {
+            //TODO: Why null?
             return await Task.Run(() => HomeController.TryCreateUserAccount(userAccountCreateData));
         }
     }

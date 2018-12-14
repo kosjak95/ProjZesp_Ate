@@ -115,7 +115,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ProjZesp_Ate\ProjZesp_Ate.csproj">
+      <Project>{E73B6F08-09F0-40B4-9683-6D717626CD1C}</Project>
+      <Name>ProjZesp_Ate</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\home.png" />
   </ItemGroup>

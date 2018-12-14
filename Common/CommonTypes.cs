@@ -1,6 +1,6 @@
 ﻿namespace CommonTypes
 {
-    class UserAccountCreateData
+    public class UserAccountCreateData
     {
         public string Name;
         public string Surname;

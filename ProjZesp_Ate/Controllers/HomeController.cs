@@ -13,24 +13,9 @@ namespace ProjZesp_Ate.Controllers
             return "Server is running...";
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         internal static bool TryCreateUserAccount(string userAccountCreateData)
         {
-            int a = 0;
-            throw new NotImplementedException();
+            return false;
         }
     }
 }
