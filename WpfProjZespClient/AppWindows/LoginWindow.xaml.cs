@@ -12,22 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfProjZespClient.AppWindows;
 
 namespace WpfProjZespClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginWindow : Window
     {
-        public MainWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }
-
+        
         private void LoginButton_onClick(object sender, RoutedEventArgs e)
         {
             //TODO: login USER
+        }
+
+        private void RegisterButton_onClick(object sender, RoutedEventArgs e)
+        {
+            Window registerWindow = new RegisterWindow();
+            App.Current.MainWindow = registerWindow;
+            registerWindow.Show();
+            this.Close();
         }
     }
 }
