@@ -17,14 +17,51 @@ namespace TechnikiInterentoweClient
     {
         public string EndPoint { get; set; }
         public HttpVerb HttpMethod { get; set; }
+        private static RestClient restClientInstance = null;
+        private static readonly object m_oPadLock = new object();
 
-        public RestClient()
+        public static RestClient Instance
+        {
+            get
+            {
+                lock (m_oPadLock)
+                {
+                    if (restClientInstance == null)
+                    {
+                        restClientInstance = new RestClient();
+                    }
+                    return restClientInstance;
+                }
+
+            }
+        }
+
+        private void ConfigureBeforeRequest(string routeAndArgs)
+        {
+            Instance.EndPoint = "http://localhost:4200/" + routeAndArgs;
+        }
+
+        public bool MakePostRequest(string route, object inObject)
+        {
+            ConfigureBeforeRequest(route + "/");
+            Instance.HttpMethod = HttpVerb.POST;
+            return Instance.MakePostRequest(inObject);
+        }
+
+        public string MakeGetRequest(string route)
+        {
+            ConfigureBeforeRequest(route + "/");
+            Instance.HttpMethod = HttpVerb.GET;
+            return Instance.MakeRequest();
+        }
+
+        private RestClient()
         {
             EndPoint = string.Empty;
             HttpMethod = HttpVerb.GET;
         }
 
-        public string MakeRequest()
+        private string MakeRequest()
         {
             string strResponse = null;
 
@@ -58,7 +95,7 @@ namespace TechnikiInterentoweClient
             return strResponse;
         }
 
-        public bool MakePostRequest(object toSerialize)
+        private bool MakePostRequest(object toSerialize)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(EndPoint);
             httpWebRequest.ContentType = "application/json";
