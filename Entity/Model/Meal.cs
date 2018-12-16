@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjZesp_Ate.Models
+namespace Entity.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Table
+    public partial class Meal
     {
         public int MealId { get; set; }
         public int FKUserId { get; set; }
@@ -20,6 +20,6 @@ namespace ProjZesp_Ate.Models
         public long Weigth { get; set; }
     
         public virtual Component Component { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

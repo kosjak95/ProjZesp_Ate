@@ -1,4 +1,5 @@
-﻿using ProjZesp_Ate.Controllers;
+﻿using Entity.Model;
+using ProjZesp_Ate.Controllers;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -10,10 +11,9 @@ namespace TechnikiInternetowe.Communication
 
         [HttpPost]
         [Route("TryCreateUserAccount")]
-        public async Task<bool> PermissionOnCreateFile(string userAccountCreateData)
+        public async Task<bool> PermissionOnCreateFile(User data)
         {
-            //TODO: Why null?
-            return await Task.Run(() => HomeController.TryCreateUserAccount(userAccountCreateData));
+            return await Task.Run(() => HomeController.TryCreateUserAccount(data));
         }
     }
 }

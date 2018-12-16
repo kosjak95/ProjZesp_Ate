@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Entity.Model;
+using System;
 using System.Web.Mvc;
 
 namespace ProjZesp_Ate.Controllers
@@ -13,9 +11,21 @@ namespace ProjZesp_Ate.Controllers
             return "Server is running...";
         }
 
-        internal static bool TryCreateUserAccount(string userAccountCreateData)
+        internal static bool TryCreateUserAccount(User userAccountCreateData)
         {
-            return false;
+            AteDatabase entity = new AteDatabase();
+
+            try
+            {
+                entity.Users.Add(userAccountCreateData);
+                entity.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
     }
 }

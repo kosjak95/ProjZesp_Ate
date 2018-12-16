@@ -116,6 +116,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{7EA92E9A-276C-4B59-88D0-AE12D0064C24}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjZesp_Ate\ProjZesp_Ate.csproj">
       <Project>{E73B6F08-09F0-40B4-9683-6D717626CD1C}</Project>
       <Name>ProjZesp_Ate</Name>

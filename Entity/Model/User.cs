@@ -7,25 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjZesp_Ate.Models
+namespace Entity.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Component
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Component()
+        public User()
         {
-            this.Meal = new HashSet<Meal>();
+            this.Meals = new HashSet<Meal>();
         }
     
-        public int ComponentId { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
-        public int Calories { get; set; }
-        public string Manufacturer { get; set; }
+        public string Surname { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Adress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Meal> Meal { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
     }
 }

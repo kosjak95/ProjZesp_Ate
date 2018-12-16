@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjZesp_Ate.Models
+namespace Entity.Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AteEntities : DbContext
+    public partial class AteDatabase : DbContext
     {
-        public AteEntities()
-            : base("name=AteEntities")
+        public AteDatabase()
+            : base("name=AteDatabase")
         {
         }
     
@@ -25,8 +25,8 @@ namespace ProjZesp_Ate.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Component> Component { get; set; }
-        public virtual DbSet<Meal> Meal { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Component> Components { get; set; }
+        public virtual DbSet<Meal> Meals { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

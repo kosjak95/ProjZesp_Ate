@@ -1,4 +1,4 @@
-﻿using CommonTypes;
+﻿using Entity.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace WpfProjZespClient.AppWindows
 
         private void AccountCreateButton_onClick(object sender, RoutedEventArgs e)
         {
-            RestClient.Instance.MakePostRequest("TryCreateUserAccount", new UserAccountCreateData()
+            RestClient.Instance.MakePostRequest("TryCreateUserAccount", new User()
             {
                 Name = nameTextBox.Text,
                 Surname = surnameTextBox.Text,

@@ -85,7 +85,7 @@
           <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Calories" Type="Int32" Nullable="false" />
           <Property Name="Manufacturer" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Meal" Relationship="Self.FK_ComponentId" FromRole="Component" ToRole="Meal" />
+          <NavigationProperty Name="Meals" Relationship="Self.FK_ComponentId" FromRole="Component" ToRole="Meal" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -96,9 +96,9 @@
           <Property Name="FKComponentId" Type="Int32" Nullable="false" />
           <Property Name="Weigth" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Component" Relationship="Self.FK_ComponentId" FromRole="Meal" ToRole="Component" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_UserId" FromRole="Meal" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserId" FromRole="Meal" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
@@ -109,7 +109,7 @@
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Adress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Meal" Relationship="Self.FK_UserId" FromRole="Users" ToRole="Meal" />
+          <NavigationProperty Name="Meals" Relationship="Self.FK_UserId" FromRole="Users" ToRole="Meal" />
         </EntityType>
         <Association Name="FK_ComponentId">
           <End Role="Component" Type="Self.Component" Multiplicity="1" />
@@ -124,7 +124,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserId">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
           <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -135,17 +135,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AteEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Component" EntityType="Self.Component" />
-          <EntitySet Name="Meal" EntityType="Self.Meal" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
+        <EntityContainer Name="AteDatabase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Components" EntityType="Self.Component" />
+          <EntitySet Name="Meals" EntityType="Self.Meal" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_ComponentId" Association="Self.FK_ComponentId">
-            <End Role="Component" EntitySet="Component" />
-            <End Role="Meal" EntitySet="Meal" />
+            <End Role="Component" EntitySet="Components" />
+            <End Role="Meal" EntitySet="Meals" />
           </AssociationSet>
           <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Meal" EntitySet="Meal" />
+            <End Role="Meal" EntitySet="Meals" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -153,8 +153,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AteModelStoreContainer" CdmEntityContainer="AteEntities">
-          <EntitySetMapping Name="Component">
+        <EntityContainerMapping StorageEntityContainer="AteModelStoreContainer" CdmEntityContainer="AteDatabase">
+          <EntitySetMapping Name="Components">
             <EntityTypeMapping TypeName="AteModel.Component">
               <MappingFragment StoreEntitySet="Component">
                 <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
@@ -164,7 +164,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Meal">
+          <EntitySetMapping Name="Meals">
             <EntityTypeMapping TypeName="AteModel.Meal">
               <MappingFragment StoreEntitySet="Meal">
                 <ScalarProperty Name="MealId" ColumnName="MealId" />
@@ -175,7 +175,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="AteModel.Users">
+            <EntityTypeMapping TypeName="AteModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -201,7 +201,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
