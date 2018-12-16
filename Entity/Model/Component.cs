@@ -22,8 +22,8 @@ namespace Entity.Model
     
         public int ComponentId { get; set; }
         public string Name { get; set; }
-        public int Calories { get; set; }
         public string Manufacturer { get; set; }
+        public int CaloriesIn100g { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meal> Meals { get; set; }

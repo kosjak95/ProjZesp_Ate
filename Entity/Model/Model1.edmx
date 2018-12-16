@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Component">
           <Key>
             <PropertyRef Name="ComponentId" />
           </Key>
           <Property Name="ComponentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="Calories" Type="int" Nullable="false" />
+          <Property Name="CaloriesIn100g" Type="int" Nullable="false" />
           <Property Name="Manufacturer" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Meal">
@@ -22,6 +22,7 @@
           <Property Name="FKUserId" Type="int" Nullable="false" />
           <Property Name="FKComponentId" Type="int" Nullable="false" />
           <Property Name="Weigth" Type="bigint" Nullable="false" />
+          <Property Name="MealType" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -34,6 +35,20 @@
           <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Adress" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\PROJZESP_ATE\PROJZESP_ATE\PROJZESP_ATE\APP_DATA\ATE.MDF.dbo.NewMeal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NewMeal">
+          <Key>
+            <PropertyRef Name="MealType" />
+            <PropertyRef Name="Weigth" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="ComponentId" />
+          </Key>
+          <Property Name="MealType" Type="smallint" Nullable="false" />
+          <Property Name="Weigth" Type="bigint" Nullable="false" />
+          <Property Name="Login" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ComponentId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ComponentId">
           <End Role="Component" Type="Self.Component" Multiplicity="1" />
@@ -63,6 +78,14 @@
           <EntitySet Name="Component" EntityType="Self.Component" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewMeal" EntityType="Self.NewMeal" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NewMeal].[MealType] AS [MealType], 
+    [NewMeal].[Weigth] AS [Weigth], 
+    [NewMeal].[Login] AS [Login], 
+    [NewMeal].[ComponentId] AS [ComponentId]
+    FROM [dbo].[NewMeal] AS [NewMeal]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_ComponentId" Association="Self.FK_ComponentId">
             <End Role="Component" EntitySet="Component" />
             <End Role="Meal" EntitySet="Meal" />
@@ -72,8 +95,7 @@
             <End Role="Meal" EntitySet="Meal" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -83,9 +105,9 @@
           </Key>
           <Property Name="ComponentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Calories" Type="Int32" Nullable="false" />
           <Property Name="Manufacturer" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Meals" Relationship="Self.FK_ComponentId" FromRole="Component" ToRole="Meal" />
+          <Property Name="CaloriesIn100g" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -97,6 +119,7 @@
           <Property Name="Weigth" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Component" Relationship="Self.FK_ComponentId" FromRole="Meal" ToRole="Component" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserId" FromRole="Meal" ToRole="Users" />
+          <Property Name="MealType" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -147,7 +170,20 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Meal" EntitySet="Meals" />
           </AssociationSet>
+          <EntitySet Name="NewMeals" EntityType="AteModel.NewMeal" />
         </EntityContainer>
+        <EntityType Name="NewMeal">
+          <Key>
+            <PropertyRef Name="MealType" />
+            <PropertyRef Name="Weigth" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="ComponentId" />
+          </Key>
+          <Property Name="MealType" Type="Int16" Nullable="false" />
+          <Property Name="Weigth" Type="Int64" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ComponentId" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -157,9 +193,9 @@
           <EntitySetMapping Name="Components">
             <EntityTypeMapping TypeName="AteModel.Component">
               <MappingFragment StoreEntitySet="Component">
+                <ScalarProperty Name="CaloriesIn100g" ColumnName="CaloriesIn100g" />
                 <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Calories" ColumnName="Calories" />
                 <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -167,6 +203,7 @@
           <EntitySetMapping Name="Meals">
             <EntityTypeMapping TypeName="AteModel.Meal">
               <MappingFragment StoreEntitySet="Meal">
+                <ScalarProperty Name="MealType" ColumnName="MealType" />
                 <ScalarProperty Name="MealId" ColumnName="MealId" />
                 <ScalarProperty Name="FKUserId" ColumnName="FKUserId" />
                 <ScalarProperty Name="FKComponentId" ColumnName="FKComponentId" />
@@ -184,6 +221,16 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewMeals">
+            <EntityTypeMapping TypeName="AteModel.NewMeal">
+              <MappingFragment StoreEntitySet="NewMeal">
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Weigth" ColumnName="Weigth" />
+                <ScalarProperty Name="MealType" ColumnName="MealType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

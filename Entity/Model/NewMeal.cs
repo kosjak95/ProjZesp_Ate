@@ -12,15 +12,11 @@ namespace Entity.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Meal
+    public partial class NewMeal
     {
-        public int MealId { get; set; }
-        public int FKUserId { get; set; }
-        public int FKComponentId { get; set; }
-        public long Weigth { get; set; }
         public short MealType { get; set; }
-    
-        public virtual Component Component { get; set; }
-        public virtual User User { get; set; }
+        public long Weigth { get; set; }
+        public string Login { get; set; }
+        public int ComponentId { get; set; }
     }
 }

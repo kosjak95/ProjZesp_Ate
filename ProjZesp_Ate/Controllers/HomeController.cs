@@ -1,5 +1,7 @@
 ﻿using Entity.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ProjZesp_Ate.Controllers
@@ -26,6 +28,28 @@ namespace ProjZesp_Ate.Controllers
                 return false;
             }
 
+        }
+
+        internal static bool TryLogIn(User data)
+        {
+            AteDatabase entity = new AteDatabase();
+            User user = null;
+            try
+            {
+                user = entity.Users.Where(w => w.Login == data.Login && w.Password == data.Password).Single();
+            }
+            catch(Exception e)
+            {
+                throw new ArgumentException();
+            }
+
+
+            return true;
+        }
+
+        internal static bool InsertMeal(List<NewMeal> list)
+        {
+            throw new NotImplementedException();
         }
     }
 }

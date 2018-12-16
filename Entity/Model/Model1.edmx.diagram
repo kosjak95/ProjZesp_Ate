@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="AteModel.User" Width="1.5" PointX="7.125" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="AteModel.FK_ComponentId" ManuallyRouted="false" />
         <AssociationConnector Association="AteModel.FK_UserId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AteModel.NewMeal" Width="1.5" PointX="0.75" PointY="3.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
