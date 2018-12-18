@@ -32,6 +32,7 @@
             <StackPanel VerticalAlignment="Top" Margin="20,120">
                 <PasswordBox Name="pswdTextBox" materialDesign:HintAssist.Hint ="HASŁO" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"></PasswordBox>
             </StackPanel>
+            <TextBlock Name="SuccAccountCreated" Text="Gratulujemy!&#x0a;Utworzono konto, teraz możesz się zalogować" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Hidden" Margin="20,110" Foreground="Green" TextAlignment="Center" FontWeight="Bold" FontSize="12"></TextBlock>
             <Button VerticalAlignment="Bottom" Margin="90,70" Content="Zaloguj" Click="LoginButton_onClick"></Button>
             <Button VerticalAlignment="Bottom" Margin="90,30" Content="Załóż konto" Width="100" Height="20" FontSize="10" Click="RegisterButton_onClick"></Button>
         </Grid>

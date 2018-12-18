@@ -25,6 +25,11 @@ namespace WpfProjZespClient
         {
             InitializeComponent();
         }
+
+        public void SetVisibilitySuccLoginLabel(System.Windows.Visibility status)
+        {
+            this.SuccAccountCreated.Visibility = status;
+        }
         
         private void LoginButton_onClick(object sender, RoutedEventArgs e)
         {

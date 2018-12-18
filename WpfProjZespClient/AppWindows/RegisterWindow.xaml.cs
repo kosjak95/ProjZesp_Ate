@@ -28,7 +28,7 @@ namespace WpfProjZespClient.AppWindows
 
         private void AccountCreateButton_onClick(object sender, RoutedEventArgs e)
         {
-            RestClient.Instance.MakePostRequest("TryCreateUserAccount", new User()
+            bool result = RestClient.Instance.MakePostRequest("TryCreateUserAccount", new User()
             {
                 Name = nameTextBox.Text,
                 Surname = surnameTextBox.Text,
@@ -37,6 +37,21 @@ namespace WpfProjZespClient.AppWindows
                 Login = loginTextBox.Text,
                 Password = passwordTextBox.Password
             });
+            if(result)
+            {
+                Window loginWindow = new LoginWindow();
+                ((LoginWindow)loginWindow).SetVisibilitySuccLoginLabel(Visibility.Visible);
+                App.Current.MainWindow = loginWindow;
+                loginWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Podane dane nie pozwalają na utworzenie nowego konta",
+                                "Register error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
         }
     }
 }
