@@ -40,7 +40,14 @@ namespace WpfProjZespClient
                 Login = loginTextBox.Text,
                 Password = pswdTextBox.Password
             });
-            if(!result)
+            if(result)
+            {
+                Window registerWindow = new MainAppWindow();
+                App.Current.MainWindow = registerWindow;
+                registerWindow.Show();
+                this.Close();
+            }
+            else
             {
                 loginTextBox.Clear();
                 pswdTextBox.Clear();

@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfProjZespClient.AppWindows.MainAppWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProjZespClient.AppWindows"
+        mc:Ignorable="d"
+        Title="FitLife" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid>
+        <Rectangle Height="50" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2281D1"></GradientStop>
+                    <GradientStop Color="#FF34268A" Offset="1"></GradientStop>
+                    <GradientStop Color="#FF33288b" Offset="0.5"></GradientStop>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Button x:Name="menuButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Click="MenuButton_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/WpfProjZespClient;component/Icons/home.png"/>
+            </Button.Background>
+        </Button>
+        <DockPanel Name="MenuPanel" HorizontalAlignment="Left" Height="550" Margin="0,50,-0.4,0" Visibility="Collapsed" VerticalAlignment="Top" Width="410">
+            <DockPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF34268A"></GradientStop>
+                    <GradientStop Color="#FF2281D1" Offset="1"></GradientStop>
+                    <GradientStop Color="#FF33288b" Offset="0.5"></GradientStop>
+                </LinearGradientBrush>
+            </DockPanel.Background>
+            <ListView x:Name="ListMenuItem" Height="550" VerticalAlignment="Top" Width="306">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+                <Button Content="aaa" Width="270" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                <Button Content="bbb" Width="270" Background="{x:Null}" BorderBrush="{x:Null}"/>
+            </ListView>
+
+        </DockPanel>
+
+    </Grid>
+</Window>
