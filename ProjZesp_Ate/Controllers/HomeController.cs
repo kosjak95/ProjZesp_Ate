@@ -16,7 +16,7 @@ namespace ProjZesp_Ate.Controllers
         internal static bool TryCreateUserAccount(User userAccountCreateData)
         {
             AteDatabase entity = new AteDatabase();
-
+            //TODO: any validate
             try
             {
                 entity.Users.Add(userAccountCreateData);
@@ -36,14 +36,12 @@ namespace ProjZesp_Ate.Controllers
             User user = null;
             try
             {
-                user = entity.Users.Where(w => w.Login == data.Login && w.Password == data.Password).Single();
+                user = entity.Users.Where(w => (w.Login == data.Login || w.Email == data.Login) && w.Password == data.Password).Single();
             }
             catch(Exception e)
             {
-                throw new ArgumentException();
+                return false;
             }
-
-
             return true;
         }
 

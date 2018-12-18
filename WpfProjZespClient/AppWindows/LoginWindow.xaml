@@ -26,13 +26,14 @@
         <Grid Height="300" Width="340" VerticalAlignment="Bottom" Margin="0,100">
             <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15" Foreground="Gray" FontSize="18"></TextBlock>
             <StackPanel VerticalAlignment="Top" Margin="20,50">
-                <TextBox Name="emailTextBox" materialDesign:HintAssist.Hint ="EMAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <TextBox Name="loginTextBox" materialDesign:HintAssist.Hint ="LOGIN/EMAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
             <TextBlock Text="Hasło" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,90" Foreground="Gray" FontSize="18"></TextBlock>
             <StackPanel VerticalAlignment="Top" Margin="20,120">
                 <PasswordBox Name="pswdTextBox" materialDesign:HintAssist.Hint ="HASŁO" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"></PasswordBox>
             </StackPanel>
             <TextBlock Name="SuccAccountCreated" Text="Gratulujemy!&#x0a;Utworzono konto, teraz możesz się zalogować" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Hidden" Margin="20,110" Foreground="Green" TextAlignment="Center" FontWeight="Bold" FontSize="12"></TextBlock>
+            <TextBlock Name="FailLogIn" Text="Błędny login lub hasło!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Hidden" Margin="20,110" Foreground="Red" TextAlignment="Center" FontWeight="Bold" FontSize="12"></TextBlock>
             <Button VerticalAlignment="Bottom" Margin="90,70" Content="Zaloguj" Click="LoginButton_onClick"></Button>
             <Button VerticalAlignment="Bottom" Margin="90,30" Content="Załóż konto" Width="100" Height="20" FontSize="10" Click="RegisterButton_onClick"></Button>
         </Grid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TechnikiInterentoweClient;
 using WpfProjZespClient.AppWindows;
 
 namespace WpfProjZespClient
@@ -33,7 +35,17 @@ namespace WpfProjZespClient
         
         private void LoginButton_onClick(object sender, RoutedEventArgs e)
         {
-            //TODO: login USER
+            bool result = RestClient.Instance.MakePostRequest("LogIn", new User()
+            {
+                Login = loginTextBox.Text,
+                Password = pswdTextBox.Password
+            });
+            if(!result)
+            {
+                loginTextBox.Clear();
+                pswdTextBox.Clear();
+                FailLogIn.Visibility = Visibility.Visible;
+            }
         }
 
         private void RegisterButton_onClick(object sender, RoutedEventArgs e)
