@@ -28,7 +28,6 @@ namespace WpfProjZespClient.AppWindows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //todo:request
             bool result = RestClient.Instance.MakePostRequest("TryCreateComponent", new Component()
             {
                 Name = nameTextBox.Text,

@@ -13,10 +13,71 @@ namespace ProjZesp_Ate.Controllers
             return "Server is running...";
         }
 
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static bool ValidateUserData(User userData)
+        {
+            if (userData.Password == null ||
+               userData.Name == null      ||
+               userData.Surname == null   ||
+               userData.Login == null     ||
+               userData.Email == null     ||
+               userData.Adress == null)
+            {
+                return false;
+            }
+
+            if (userData.Password.Length < 8         ||
+               userData.Name.Equals(string.Empty)    ||
+               userData.Surname.Equals(string.Empty) ||
+               userData.Login.Length < 2             ||
+               userData.Email.Equals(string.Empty)   ||
+               userData.Adress.Equals(string.Empty))
+            {
+                return false;
+            }
+
+            if(!IsValidEmail(userData.Email))
+            {
+                return false;
+            }
+
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                long count = entity.Users.Where(w => w.Login == userData.Login ||
+                                                     w.Email == userData.Email).LongCount();
+
+                if(count > 0)
+                {
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
+
         internal static bool TryCreateUserAccount(User userAccountCreateData)
         {
             AteDatabase entity = new AteDatabase();
-            //TODO: any validate
+            if(!ValidateUserData(userAccountCreateData))
+            {
+                return false;
+            }
             try
             {
                 entity.Users.Add(userAccountCreateData);
@@ -47,7 +108,10 @@ namespace ProjZesp_Ate.Controllers
         internal static bool TryCreateComponent(Component component)
         {
             AteDatabase entity = new AteDatabase();
-            //TODO: any validate
+            if(!ValidateComponentData(component))
+            {
+                return false;
+            }
             try
             {
                 entity.Components.Add(component);
@@ -58,6 +122,38 @@ namespace ProjZesp_Ate.Controllers
             {
                 return false;
             }
+        }
+
+        private static bool ValidateComponentData(Component component)
+        {
+            if (component.Manufacturer == null ||
+                component.Name== null)
+            {
+                return false;
+            }
+
+            if (component.Manufacturer.Equals(string.Empty) ||
+                component.Name.Equals(string.Empty)         ||
+                component.CaloriesIn100g <= 0)
+            {
+                return false;
+            }
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                long count = entity.Components.Where(w => w.Name == component.Name &&
+                                                     w.Manufacturer == component.Manufacturer).LongCount();
+
+                if (count > 0)
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
 
         internal static bool InsertMeal(List<NewMeal> list)
