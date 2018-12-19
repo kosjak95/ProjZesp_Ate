@@ -23,9 +23,9 @@ namespace WpfProjZespClient.AppWindows
             InitializeComponent();
         }
 
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void changeMenuVisibility()
         {
-            if(MenuPanel.Visibility.Equals(Visibility.Visible))
+            if (MenuPanel.Visibility.Equals(Visibility.Visible))
             {
                 MenuPanel.Visibility = Visibility.Collapsed;
             }
@@ -33,6 +33,29 @@ namespace WpfProjZespClient.AppWindows
             {
                 MenuPanel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            changeMenuVisibility();
+        }
+
+        private void AddComponentButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window addComponentWindow = new AddComponentWindow();
+            App.Current.MainWindow = addComponentWindow;
+            addComponentWindow.Show();
+            this.Close();
+        }
+
+        private void AddDishButton_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: handle
+        }
+
+        private void AddMealButton_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: handle
         }
     }
 }

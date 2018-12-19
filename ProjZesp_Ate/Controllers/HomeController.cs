@@ -27,7 +27,6 @@ namespace ProjZesp_Ate.Controllers
             {
                 return false;
             }
-
         }
 
         internal static bool TryLogIn(User data)
@@ -43,6 +42,22 @@ namespace ProjZesp_Ate.Controllers
                 return false;
             }
             return true;
+        }
+
+        internal static bool TryCreateComponent(Component component)
+        {
+            AteDatabase entity = new AteDatabase();
+            //TODO: any validate
+            try
+            {
+                entity.Components.Add(component);
+                entity.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         internal static bool InsertMeal(List<NewMeal> list)

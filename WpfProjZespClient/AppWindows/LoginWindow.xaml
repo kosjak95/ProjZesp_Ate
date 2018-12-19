@@ -17,7 +17,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Image Source="Icons/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="20"></Image>
+        <Image Source="/WpfProjZespClient;component/Icons/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="20"></Image>
         <Rectangle Height="300" Width="340" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusX="10" RadiusY="10">
             <Rectangle.Effect>
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" ShadowDepth="1" RenderingBias="Quality" Direction="0"/>
@@ -26,11 +26,11 @@
         <Grid Height="300" Width="340" VerticalAlignment="Bottom" Margin="0,100">
             <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15" Foreground="Gray" FontSize="18"></TextBlock>
             <StackPanel VerticalAlignment="Top" Margin="20,50">
-                <TextBox Name="loginTextBox" materialDesign:HintAssist.Hint ="LOGIN/EMAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                <TextBox Name="loginTextBox" KeyDown="HandleKeyDownEvent" materialDesign:HintAssist.Hint ="LOGIN/EMAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
             <TextBlock Text="Hasło" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,90" Foreground="Gray" FontSize="18"></TextBlock>
             <StackPanel VerticalAlignment="Top" Margin="20,120">
-                <PasswordBox Name="pswdTextBox" materialDesign:HintAssist.Hint ="HASŁO" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"></PasswordBox>
+                <PasswordBox Name="pswdTextBox" KeyDown="HandleKeyDownEvent" materialDesign:HintAssist.Hint ="HASŁO" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"></PasswordBox>
             </StackPanel>
             <TextBlock Name="SuccAccountCreated" Text="Gratulujemy!&#x0a;Utworzono konto, teraz możesz się zalogować" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Hidden" Margin="20,110" Foreground="Green" TextAlignment="Center" FontWeight="Bold" FontSize="12"></TextBlock>
             <TextBlock Name="FailLogIn" Text="Błędny login lub hasło!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Hidden" Margin="20,110" Foreground="Red" TextAlignment="Center" FontWeight="Bold" FontSize="12"></TextBlock>

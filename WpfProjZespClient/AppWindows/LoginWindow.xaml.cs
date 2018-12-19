@@ -33,18 +33,18 @@ namespace WpfProjZespClient
             this.SuccAccountCreated.Visibility = status;
         }
         
-        private void LoginButton_onClick(object sender, RoutedEventArgs e)
+        private void LoginAction()
         {
             bool result = RestClient.Instance.MakePostRequest("LogIn", new User()
             {
                 Login = loginTextBox.Text,
                 Password = pswdTextBox.Password
             });
-            if(result)
+            if (result)
             {
-                Window registerWindow = new MainAppWindow();
-                App.Current.MainWindow = registerWindow;
-                registerWindow.Show();
+                Window mainWindow = new MainAppWindow();
+                App.Current.MainWindow = mainWindow;
+                mainWindow.Show();
                 this.Close();
             }
             else
@@ -55,12 +55,27 @@ namespace WpfProjZespClient
             }
         }
 
+        private void LoginButton_onClick(object sender, RoutedEventArgs e)
+        {
+            LoginAction();
+        }
+
         private void RegisterButton_onClick(object sender, RoutedEventArgs e)
         {
             Window registerWindow = new RegisterWindow();
             App.Current.MainWindow = registerWindow;
             registerWindow.Show();
             this.Close();
+        }
+
+        private void HandleKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    LoginAction();
+                    break;
+            }
         }
     }
 }

@@ -31,6 +31,11 @@ namespace TechnikiInternetowe.Communication
             return await Task.Run(() => HomeController.InsertMeal(list));
         }
 
-
+        [HttpPost]
+        [Route("TryCreateComponent")]
+        public async Task<bool> CreateComponent(Component component)
+        {
+            return await Task.Run(() => HomeController.TryCreateComponent(component));
+        }
     }
 }

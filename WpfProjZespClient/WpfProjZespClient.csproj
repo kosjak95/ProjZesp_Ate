@@ -65,12 +65,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppWindows\AddComponentWindow.xaml.cs">
+      <DependentUpon>AddComponentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppWindows\MainAppWindow.xaml.cs">
       <DependentUpon>MainAppWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RestClient.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
+    <Page Include="AppWindows\AddComponentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AppWindows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

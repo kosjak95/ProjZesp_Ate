@@ -35,11 +35,10 @@
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
-                <Button Content="aaa" Width="270" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                <Button Content="bbb" Width="270" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                <Button Name="addComponentButton" Content="Dodaj składnik" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddComponentButton_Click"/>
+                <Button Name="addDishButton" Content="Dodaj danie" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddDishButton_Click"/>
+                <Button Name="addMealButton" Content="Dodaj posiłek" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddMealButton_Click"/>
             </ListView>
-
         </DockPanel>
-
     </Grid>
 </Window>
