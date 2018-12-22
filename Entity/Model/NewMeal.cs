@@ -17,6 +17,5 @@ namespace Entity.Model
         public short MealType { get; set; }
         public long Weigth { get; set; }
         public string Login { get; set; }
-        public int ComponentId { get; set; }
     }
 }

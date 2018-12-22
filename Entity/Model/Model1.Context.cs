@@ -26,6 +26,7 @@ namespace Entity.Model
         }
     
         public virtual DbSet<Component> Components { get; set; }
+        public virtual DbSet<Connector> Connectors { get; set; }
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<NewMeal> NewMeals { get; set; }

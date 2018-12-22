@@ -17,15 +17,15 @@ namespace Entity.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Component()
         {
-            this.Meals = new HashSet<Meal>();
+            this.Connectors = new HashSet<Connector>();
         }
     
         public int ComponentId { get; set; }
         public string Name { get; set; }
-        public string Manufacturer { get; set; }
         public int CaloriesIn100g { get; set; }
+        public string Manufacturer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Meal> Meals { get; set; }
+        public virtual ICollection<Connector> Connectors { get; set; }
     }
 }

@@ -14,13 +14,19 @@ namespace Entity.Model
     
     public partial class Meal
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Meal()
+        {
+            this.Connectors = new HashSet<Connector>();
+        }
+    
         public int MealId { get; set; }
         public int FKUserId { get; set; }
-        public int FKComponentId { get; set; }
         public long Weigth { get; set; }
         public short MealType { get; set; }
     
-        public virtual Component Component { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Connector> Connectors { get; set; }
         public virtual User User { get; set; }
     }
 }
