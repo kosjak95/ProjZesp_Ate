@@ -61,7 +61,7 @@ namespace TechnikiInterentoweClient
             HttpMethod = HttpVerb.GET;
         }
 
-        public string MakeRequest()
+        private string MakeRequest()
         {
             string strResponse = null;
 

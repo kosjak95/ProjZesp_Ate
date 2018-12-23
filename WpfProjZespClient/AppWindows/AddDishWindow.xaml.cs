@@ -34,9 +34,7 @@ namespace WpfProjZespClient.AppWindows
 
         private void LoadComponentsFromDb()
         {
-            RestClient.Instance.EndPoint = "http://localhost:4200/GetComponentsList";
-            RestClient.Instance.HttpMethod = HttpVerb.GET;
-            string codedComponentsList = RestClient.Instance.MakeRequest();
+            string codedComponentsList = RestClient.Instance.MakeGetRequest("GetComponentsList");
             componentsList = new JavaScriptSerializer().Deserialize<List<Component>>(codedComponentsList);
         }
 
