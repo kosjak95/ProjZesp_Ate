@@ -42,15 +42,19 @@ namespace WpfProjZespClient.AppWindows
 
         private void AddComponentButton_Click(object sender, RoutedEventArgs e)
         {
-            Window addComponentWindow = new AddComponentWindow();
-            App.Current.MainWindow = addComponentWindow;
-            addComponentWindow.Show();
+            Window window = new AddComponentWindow();
+            App.Current.MainWindow = window;
+            window.Show();
             this.Close();
         }
 
         private void AddDishButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: handle
+            Window window = new AddDishWindow();
+            App.Current.MainWindow = window;
+            window.Show();
+            this.Close();
+            //TODO: kosu add to connector table one more field, with mass of component at meal
         }
 
         private void AddMealButton_Click(object sender, RoutedEventArgs e)

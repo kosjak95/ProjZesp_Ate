@@ -37,5 +37,12 @@ namespace TechnikiInternetowe.Communication
         {
             return await Task.Run(() => HomeController.TryCreateComponent(component));
         }
+
+        [HttpGet]
+        [Route("GetComponentsList")]
+        public async Task<string> GetComponentsList()
+        {
+            return await Task.Run(() => HomeController.GetComponentsList());
+        }
     }
 }

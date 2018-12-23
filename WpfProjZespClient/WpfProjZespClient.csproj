@@ -68,6 +68,12 @@
     <Compile Include="AppWindows\AddComponentWindow.xaml.cs">
       <DependentUpon>AddComponentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppWindows\AddDishWindow.xaml.cs">
+      <DependentUpon>AddDishWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppWindows\AddMealWindow.xaml.cs">
+      <DependentUpon>AddMealWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppWindows\MainAppWindow.xaml.cs">
       <DependentUpon>MainAppWindow.xaml</DependentUpon>
     </Compile>
@@ -75,6 +81,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Page Include="AppWindows\AddComponentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppWindows\AddDishWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppWindows\AddMealWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

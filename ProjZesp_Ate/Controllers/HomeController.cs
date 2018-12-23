@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace ProjZesp_Ate.Controllers
 {
@@ -69,6 +70,25 @@ namespace ProjZesp_Ate.Controllers
                 return false;
             }
             return true;
+        }
+
+        internal static string GetComponentsList()
+        {
+            List<Component> componentsNamesList = new List<Component>();
+
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                var dane = entity.Components.Select(s => new { s.Name, s.ComponentId, s.CaloriesIn100g, s.Manufacturer, s.Connectors });
+                componentsNamesList = new JavaScriptSerializer().Deserialize<List<Component>>(
+                                         new JavaScriptSerializer().Serialize(dane));
+                return new JavaScriptSerializer().Serialize(componentsNamesList);
+
+            }
+            catch (Exception e)
+            {
+                return new JavaScriptSerializer().Serialize(componentsNamesList);
+            }
         }
 
         internal static bool TryCreateUserAccount(User userAccountCreateData)
