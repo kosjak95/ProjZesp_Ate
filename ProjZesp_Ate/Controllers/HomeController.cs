@@ -72,6 +72,12 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
+        internal static bool TryCreateDish(DishData dishData)
+        {
+            //TODO: insert to db
+            return false;
+        }
+
         internal static string GetComponentsList()
         {
             List<Component> componentsNamesList = new List<Component>();

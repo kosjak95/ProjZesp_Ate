@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CommonTypes.cs" />
     <Compile Include="Model\Component.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

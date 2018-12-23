@@ -23,10 +23,11 @@ namespace WpfProjZespClient.AppWindows
     public partial class AddDishWindow : Window
     {
         private List<Component> componentsList;
-        private string selectComponent;
+        private List<Component> selectedComponentsList;
 
         public AddDishWindow()
         {
+            selectedComponentsList = new List<Component>();
             LoadComponentsFromDb();
             InitializeComponent();
         }
@@ -51,20 +52,50 @@ namespace WpfProjZespClient.AppWindows
             combo.SelectedIndex = 0;
         }
 
-        private void ComponentComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var combo = sender as ComboBox;
-            selectComponent = combo.SelectedItem as string;
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: adding to list at background and at window next component
+            Button newButton = new Button();
+            newButton.Content = componentComboBox.SelectedItem as string;
+            newButton.Width = 130;
+            newButton.FontSize = 10;
+            newButton.Margin = new Thickness(5, 3, 0, 0);
+            newButton.MouseRightButtonUp += RemoveButton_Click;
+            SelectedComponentsPanel.Children.Add(newButton);
+
+            int selectedIndex = componentComboBox.SelectedIndex;
+            selectedComponentsList.Add(componentsList.ElementAt(selectedIndex));
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            int buttonIndex = SelectedComponentsPanel.Children.IndexOf(button);
+            selectedComponentsList.RemoveAt(buttonIndex);
+            SelectedComponentsPanel.Children.RemoveAt(buttonIndex);
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: send dish to db
+            bool result = RestClient.Instance.MakePostRequest("TryCreateDish", new DishData()
+            {
+                Name = nameTextBox.Text,
+                Mass = MassTextBox.Text,
+                ComponentsList = selectedComponentsList
+            });
+            string userResponse = result ? "Udało się dodać danie" : "Nie możemy dodać wskazanego dania";
+
+            if (result)
+            {
+                Window mainWindow = new MainAppWindow();
+                App.Current.MainWindow = mainWindow;
+                mainWindow.Show();
+                this.Close();
+            }
+
+            MessageBox.Show(userResponse,
+                            "Dodawanie potrawy",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
         }
     }
 }

@@ -38,6 +38,13 @@ namespace TechnikiInternetowe.Communication
             return await Task.Run(() => HomeController.TryCreateComponent(component));
         }
 
+        [HttpPost]
+        [Route("TryCreateDish")]
+        public async Task<bool> CreateDish(DishData dishData)
+        {
+            return await Task.Run(() => HomeController.TryCreateDish(dishData));
+        }
+
         [HttpGet]
         [Route("GetComponentsList")]
         public async Task<string> GetComponentsList()

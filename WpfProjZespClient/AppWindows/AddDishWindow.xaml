@@ -29,7 +29,7 @@
                 <TextBox Name="nameTextBox" materialDesign:HintAssist.Hint ="NAZWA POTRAWY" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
             <StackPanel VerticalAlignment="Top" Margin="20,60">
-                <ComboBox Name="componentComboBox" Loaded="ComponentComboBox_Loaded" DataContextChanged="ComponentComboBox_DataContextChanged"/>
+                <ComboBox Name="componentComboBox" Loaded="ComponentComboBox_Loaded"/>
             </StackPanel>
             <StackPanel VerticalAlignment="Top" Margin="20,100">
                 <TextBox Name="MassTextBox" materialDesign:HintAssist.Hint ="GRAMATURA" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
@@ -38,8 +38,7 @@
             <Button VerticalAlignment="Bottom" Margin="90,90" Content="Gotowe!" Click="SendButton_Click"></Button>
             <Grid VerticalAlignment="Bottom" Margin="20,10" Height="70">
                 <ScrollViewer>
-                    <WrapPanel Orientation="Horizontal">
-                        <Button Width="80" Margin="5,3,0,0" Content="Gotowe!"></Button>
+                    <WrapPanel Name="SelectedComponentsPanel" Orientation="Horizontal">
                     </WrapPanel>
                 </ScrollViewer>
             </Grid>
