@@ -135,7 +135,7 @@ namespace ProjZesp_Ate.Controllers
                 {
                     dish.Connectors.Add(new Connector()
                     {
-                        Component = com,
+                        FK_ComponentId = com.ComponentId,
                         ComponentWeigth = com.TempWeigth.GetValueOrDefault(),
                     });
                 }
@@ -160,20 +160,8 @@ namespace ProjZesp_Ate.Controllers
             AteDatabase entity = new AteDatabase();
             try
             {
-                var dane = entity.Components.Select(s => new
-                {
-                    s.Name,
-                    s.ComponentId,
-                    s.CaloriesIn100g,
-                    s.Manufacturer,
-                    s.Connectors,
-                    s.CarbohydratesIn100g,
-                    s.FatsIn100g,
-                    s.ProteinIn100g
-                });
-                componentsNamesList = new JavaScriptSerializer().Deserialize<List<Component>>(
-                                         new JavaScriptSerializer().Serialize(dane));
-                return new JavaScriptSerializer().Serialize(componentsNamesList);
+                List<Component> dane = entity.Components.ToList();
+                return new JavaScriptSerializer().Serialize(dane);
 
             }
             catch (Exception e)

@@ -8,6 +8,7 @@ namespace Entity.Model
 {
     public class DishData
     {
+        public int UserId;
         public string Name;
         public string Mass;
         public List<Component> ComponentsList;
