@@ -109,12 +109,17 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
-        internal static bool TryCreateDish(int UserId, string Name, string Mass, List<Component> ComponentsList)
+        internal static bool TryCreateDish(int UserId, string Name, List<Component> ComponentsList)
         {
-            //DONE: insert to db
-            if (UserId == 0 || Name.Equals("") || Mass.Equals("") || ComponentsList.Count == 0)
+            if (UserId == 0 || Name.Equals("") || ComponentsList.Count == 0)
             {
                 return false;
+            }
+
+            int TotalDishMass = 0;
+            foreach(Component compo in ComponentsList)
+            {
+                TotalDishMass += (int)compo.TempWeigth;
             }
 
             AteDatabase entity = new AteDatabase();
@@ -123,7 +128,7 @@ namespace ProjZesp_Ate.Controllers
                 Dish dish = new Dish()
                 {
                     FKUserId = UserId,
-                    Weigth = Convert.ToInt32(Mass),
+                    Weigth = TotalDishMass,
                     Name = Name,
                 };
                 foreach (Component com in ComponentsList)
@@ -155,13 +160,23 @@ namespace ProjZesp_Ate.Controllers
             AteDatabase entity = new AteDatabase();
             try
             {
-                var dane = entity.Components.Select(s => new { s.Name, s.ComponentId, s.CaloriesIn100g, s.Manufacturer, s.Connectors });
+                var dane = entity.Components.Select(s => new
+                {
+                    s.Name,
+                    s.ComponentId,
+                    s.CaloriesIn100g,
+                    s.Manufacturer,
+                    s.Connectors,
+                    s.CarbohydratesIn100g,
+                    s.FatsIn100g,
+                    s.ProteinIn100g
+                });
                 componentsNamesList = new JavaScriptSerializer().Deserialize<List<Component>>(
                                          new JavaScriptSerializer().Serialize(dane));
                 return new JavaScriptSerializer().Serialize(componentsNamesList);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return new JavaScriptSerializer().Serialize(componentsNamesList);
             }

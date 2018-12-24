@@ -62,6 +62,8 @@ namespace WpfProjZespClient.AppWindows
 
             int selectedIndex = componentComboBox.SelectedIndex;
             selectedComponentsList.Add(componentsList.ElementAt(selectedIndex));
+            selectedComponentsList.Last().TempWeigth = Int32.Parse(MassTextBox.Text);
+            MassTextBox.Clear();
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -77,7 +79,6 @@ namespace WpfProjZespClient.AppWindows
             bool result = RestClient.Instance.MakePostRequest("TryCreateDish", new DishData()
             {
                 Name = nameTextBox.Text,
-                Mass = MassTextBox.Text,
                 ComponentsList = selectedComponentsList
             });
             string userResponse = result ? "Udało się dodać danie" : "Nie możemy dodać wskazanego dania";

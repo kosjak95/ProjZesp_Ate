@@ -33,9 +33,9 @@ namespace TechnikiInternetowe.Communication
 
         [HttpPost]
         [Route("TryCreateDish")]
-        public async Task<bool> CreateDish(int UserId, string Name, string Mass, List<Component> ComponentsList)
+        public async Task<bool> CreateDish(int UserId, string Name, List<Component> ComponentsList)
         {
-            return await Task.Run(() => HomeController.TryCreateDish(UserId, Name, Mass, ComponentsList));
+            return await Task.Run(() => HomeController.TryCreateDish(UserId, Name, ComponentsList));
         }
 
         [HttpPost]
