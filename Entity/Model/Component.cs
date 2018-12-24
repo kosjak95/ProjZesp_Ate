@@ -24,6 +24,10 @@ namespace Entity.Model
         public string Name { get; set; }
         public int CaloriesIn100g { get; set; }
         public string Manufacturer { get; set; }
+        public int ProteinIn100g { get; set; }
+        public int FatsIn100g { get; set; }
+        public int CarbohydratesIn100g { get; set; }
+        public Nullable<double> TempWeigth { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Connector> Connectors { get; set; }

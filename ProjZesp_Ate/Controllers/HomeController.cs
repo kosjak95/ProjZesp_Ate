@@ -30,26 +30,26 @@ namespace ProjZesp_Ate.Controllers
         private static bool ValidateUserData(User userData)
         {
             if (userData.Password == null ||
-               userData.Name == null      ||
-               userData.Surname == null   ||
-               userData.Login == null     ||
-               userData.Email == null     ||
+               userData.Name == null ||
+               userData.Surname == null ||
+               userData.Login == null ||
+               userData.Email == null ||
                userData.Adress == null)
             {
                 return false;
             }
 
-            if (userData.Password.Length < 8         ||
-               userData.Name.Equals(string.Empty)    ||
+            if (userData.Password.Length < 8 ||
+               userData.Name.Equals(string.Empty) ||
                userData.Surname.Equals(string.Empty) ||
-               userData.Login.Length < 2             ||
-               userData.Email.Equals(string.Empty)   ||
+               userData.Login.Length < 2 ||
+               userData.Email.Equals(string.Empty) ||
                userData.Adress.Equals(string.Empty))
             {
                 return false;
             }
 
-            if(!IsValidEmail(userData.Email))
+            if (!IsValidEmail(userData.Email))
             {
                 return false;
             }
@@ -60,22 +60,53 @@ namespace ProjZesp_Ate.Controllers
                 long count = entity.Users.Where(w => w.Login == userData.Login ||
                                                      w.Email == userData.Email).LongCount();
 
-                if(count > 0)
+                if (count > 0)
                 {
                     return false;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
             return true;
         }
 
-        internal static bool TryCreateDish(DishData dishData)
+        internal static bool TryCreateDish(int UserId, string Name, string Mass, List<Component> ComponentsList)
         {
-            //TODO: insert to db
-            return false;
+            //DONE: insert to db
+            if (Name.Equals("") || Mass.Equals("") || ComponentsList.Count == 0)
+                return false;
+
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                Dish dish = new Dish()
+                {
+                    FKUserId = UserId,
+                    Weigth = Convert.ToInt32(Mass),
+                    Name = Name,
+                };
+                foreach(Component com in ComponentsList)
+                {
+                    dish.Connectors.Add(new Connector()
+                    {
+                        Component = com,
+                        ComponentWeigth = com.TempWeigth.GetValueOrDefault(),
+                    });
+                }
+
+                entity.Dishes.Add(dish);
+                entity.SaveChanges();
+
+                
+            }
+            catch(Exception e)
+            {
+                Console.Write("TryCreateDish Error");
+                return false;
+            }
+            return true;
         }
 
         internal static string GetComponentsList()
@@ -182,9 +213,5 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
-        internal static bool InsertMeal(List<NewMeal> list)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

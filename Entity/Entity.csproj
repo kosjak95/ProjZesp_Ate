@@ -74,6 +74,9 @@
     <Compile Include="Model\Connector.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Dish.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\Meal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -92,9 +95,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\NewMeal.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>

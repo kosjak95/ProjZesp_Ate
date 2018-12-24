@@ -4,23 +4,38 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Component">
           <Key>
             <PropertyRef Name="ComponentId" />
           </Key>
           <Property Name="ComponentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="CaloriesIn100g" Type="int" Nullable="false" />
+          <Property Name="CaloriesIn100g" Type="float" Nullable="false" />
+          <Property Name="ProteinIn100g" Type="float" Nullable="false" />
+          <Property Name="FatsIn100g" Type="float" Nullable="false" />
+          <Property Name="CarbohydratesIn100g" Type="float" Nullable="false" />
           <Property Name="Manufacturer" Type="nvarchar" MaxLength="15" />
+          <Property Name="TempWeigth" Type="float" />
         </EntityType>
         <EntityType Name="Connector">
           <Key>
             <PropertyRef Name="ConnectorId" />
           </Key>
           <Property Name="ConnectorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FK_MealId" Type="int" Nullable="false" />
+          <Property Name="FK_MealId" Type="int" />
+          <Property Name="FK_DishId" Type="int" />
           <Property Name="FK_ComponentId" Type="int" Nullable="false" />
+          <Property Name="ComponentWeigth" Type="float" />
+        </EntityType>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="DishId" Type="int" Nullable="false" />
+          <Property Name="FKUserId" Type="int" Nullable="false" />
+          <Property Name="Weigth" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -43,18 +58,6 @@
           <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Adress" Type="nvarchar" MaxLength="30" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\PROJZESP_ATE\PROJZESP_ATE\PROJZESP_ATE\APP_DATA\ATE.MDF.dbo.NewMeal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="NewMeal">
-          <Key>
-            <PropertyRef Name="MealType" />
-            <PropertyRef Name="Weigth" />
-            <PropertyRef Name="Login" />
-          </Key>
-          <Property Name="MealType" Type="smallint" Nullable="false" />
-          <Property Name="Weigth" Type="bigint" Nullable="false" />
-          <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
-        </EntityType>
         <Association Name="FK_ComponentId">
           <End Role="Component" Type="Self.Component" Multiplicity="1" />
           <End Role="Connector" Type="Self.Connector" Multiplicity="*" />
@@ -67,8 +70,32 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dish_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="FKUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishId">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="0..1" />
+          <End Role="Connector" Type="Self.Connector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="DishId" />
+            </Principal>
+            <Dependent Role="Connector">
+              <PropertyRef Name="FK_DishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MealId">
-          <End Role="Meal" Type="Self.Meal" Multiplicity="1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="0..1" />
           <End Role="Connector" Type="Self.Connector" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Meal">
@@ -94,17 +121,19 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
         <EntityContainer Name="AteModelStoreContainer">
           <EntitySet Name="Component" EntityType="Self.Component" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Connector" EntityType="Self.Connector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="NewMeal" EntityType="Self.NewMeal" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [NewMeal].[MealType] AS [MealType], 
-    [NewMeal].[Weigth] AS [Weigth], 
-    [NewMeal].[Login] AS [Login]
-    FROM [dbo].[NewMeal] AS [NewMeal]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_ComponentId" Association="Self.FK_ComponentId">
             <End Role="Component" EntitySet="Component" />
+            <End Role="Connector" EntitySet="Connector" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dish_User" Association="Self.FK_Dish_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishId" Association="Self.FK_DishId">
+            <End Role="Dish" EntitySet="Dish" />
             <End Role="Connector" EntitySet="Connector" />
           </AssociationSet>
           <AssociationSet Name="FK_MealId" Association="Self.FK_MealId">
@@ -116,8 +145,7 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
             <End Role="Meal" EntitySet="Meal" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -130,16 +158,23 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
           <Property Name="CaloriesIn100g" Type="Int32" Nullable="false" />
           <Property Name="Manufacturer" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Connectors" Relationship="Self.FK_ComponentId" FromRole="Component" ToRole="Connector" />
+          <Property Name="ProteinIn100g" Type="Int32" Nullable="false" />
+          <Property Name="FatsIn100g" Type="Int32" Nullable="false" />
+          <Property Name="CarbohydratesIn100g" Type="Int32" Nullable="false" />
+          <Property Name="TempWeigth" Type="Double" />
         </EntityType>
         <EntityType Name="Connector">
           <Key>
             <PropertyRef Name="ConnectorId" />
           </Key>
           <Property Name="ConnectorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_MealId" Type="Int32" Nullable="false" />
+          <Property Name="FK_MealId" Type="Int32" />
           <Property Name="FK_ComponentId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Component" Relationship="Self.FK_ComponentId" FromRole="Connector" ToRole="Component" />
           <NavigationProperty Name="Meal" Relationship="Self.FK_MealId" FromRole="Connector" ToRole="Meal" />
+          <Property Name="FK_DishId" Type="Int32" />
+          <NavigationProperty Name="Dish" Relationship="AteModel.FK_DishId" FromRole="Connector" ToRole="Dish" />
+          <Property Name="ComponentWeigth" Type="Double" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -164,16 +199,7 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Adress" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Meals" Relationship="Self.FK_UserId" FromRole="Users" ToRole="Meal" />
-        </EntityType>
-        <EntityType Name="NewMeal">
-          <Key>
-            <PropertyRef Name="MealType" />
-            <PropertyRef Name="Weigth" />
-            <PropertyRef Name="Login" />
-          </Key>
-          <Property Name="MealType" Type="Int16" Nullable="false" />
-          <Property Name="Weigth" Type="Int64" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Dishes" Relationship="AteModel.FK_Dish_User" FromRole="User" ToRole="Dish" />
         </EntityType>
         <Association Name="FK_ComponentId">
           <End Role="Component" Type="Self.Component" Multiplicity="1" />
@@ -188,7 +214,7 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MealId">
-          <End Role="Meal" Type="Self.Meal" Multiplicity="1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="0..1" />
           <End Role="Connector" Type="Self.Connector" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Meal">
@@ -216,7 +242,6 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
           <EntitySet Name="Connectors" EntityType="Self.Connector" />
           <EntitySet Name="Meals" EntityType="Self.Meal" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="NewMeals" EntityType="Self.NewMeal" />
           <AssociationSet Name="FK_ComponentId" Association="Self.FK_ComponentId">
             <End Role="Component" EntitySet="Components" />
             <End Role="Connector" EntitySet="Connectors" />
@@ -229,7 +254,51 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
             <End Role="Users" EntitySet="Users" />
             <End Role="Meal" EntitySet="Meals" />
           </AssociationSet>
+          <EntitySet Name="Dishes" EntityType="AteModel.Dish" />
+          <AssociationSet Name="FK_Dish_User" Association="AteModel.FK_Dish_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Dish" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishId" Association="AteModel.FK_DishId">
+            <End Role="Dish" EntitySet="Dishes" />
+            <End Role="Connector" EntitySet="Connectors" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="DishId" Type="Int32" Nullable="false" />
+          <Property Name="FKUserId" Type="Int32" Nullable="false" />
+          <Property Name="Weigth" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="AteModel.FK_Dish_User" FromRole="Dish" ToRole="User" />
+          <NavigationProperty Name="Connectors" Relationship="AteModel.FK_DishId" FromRole="Dish" ToRole="Connector" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Dish_User">
+          <End Type="AteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AteModel.Dish" Role="Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="FKUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishId">
+          <End Type="AteModel.Dish" Role="Dish" Multiplicity="0..1" />
+          <End Type="AteModel.Connector" Role="Connector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="DishId" />
+            </Principal>
+            <Dependent Role="Connector">
+              <PropertyRef Name="FK_DishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -239,6 +308,10 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
           <EntitySetMapping Name="Components">
             <EntityTypeMapping TypeName="AteModel.Component">
               <MappingFragment StoreEntitySet="Component">
+                <ScalarProperty Name="TempWeigth" ColumnName="TempWeigth" />
+                <ScalarProperty Name="CarbohydratesIn100g" ColumnName="CarbohydratesIn100g" />
+                <ScalarProperty Name="FatsIn100g" ColumnName="FatsIn100g" />
+                <ScalarProperty Name="ProteinIn100g" ColumnName="ProteinIn100g" />
                 <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CaloriesIn100g" ColumnName="CaloriesIn100g" />
@@ -249,6 +322,8 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
           <EntitySetMapping Name="Connectors">
             <EntityTypeMapping TypeName="AteModel.Connector">
               <MappingFragment StoreEntitySet="Connector">
+                <ScalarProperty Name="ComponentWeigth" ColumnName="ComponentWeigth" />
+                <ScalarProperty Name="FK_DishId" ColumnName="FK_DishId" />
                 <ScalarProperty Name="ConnectorId" ColumnName="ConnectorId" />
                 <ScalarProperty Name="FK_MealId" ColumnName="FK_MealId" />
                 <ScalarProperty Name="FK_ComponentId" ColumnName="FK_ComponentId" />
@@ -278,12 +353,13 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NewMeals">
-            <EntityTypeMapping TypeName="AteModel.NewMeal">
-              <MappingFragment StoreEntitySet="NewMeal">
-                <ScalarProperty Name="MealType" ColumnName="MealType" />
+          <EntitySetMapping Name="Dishes">
+            <EntityTypeMapping TypeName="AteModel.Dish">
+              <MappingFragment StoreEntitySet="Dish">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Weigth" ColumnName="Weigth" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="FKUserId" ColumnName="FKUserId" />
+                <ScalarProperty Name="DishId" ColumnName="DishId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -302,7 +378,7 @@ warning 6002: The table/view 'C:\USERS\KOSMI\ONEDRIVE\DOCUMENTS\VISUAL STUDIO 20
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

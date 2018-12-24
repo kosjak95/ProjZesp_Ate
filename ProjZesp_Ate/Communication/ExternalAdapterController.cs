@@ -25,13 +25,6 @@ namespace TechnikiInternetowe.Communication
         }
 
         [HttpPost]
-        [Route("AddMyMeal")]
-        public async Task<bool> AddMyMeal(List<NewMeal> list)
-        {
-            return await Task.Run(() => HomeController.InsertMeal(list));
-        }
-
-        [HttpPost]
         [Route("TryCreateComponent")]
         public async Task<bool> CreateComponent(Component component)
         {
@@ -40,9 +33,9 @@ namespace TechnikiInternetowe.Communication
 
         [HttpPost]
         [Route("TryCreateDish")]
-        public async Task<bool> CreateDish(DishData dishData)
+        public async Task<bool> CreateDish(int UserId, string Name, string Mass, List<Component> ComponentsList)
         {
-            return await Task.Run(() => HomeController.TryCreateDish(dishData));
+            return await Task.Run(() => HomeController.TryCreateDish(UserId, Name, Mass, ComponentsList));
         }
 
         [HttpGet]

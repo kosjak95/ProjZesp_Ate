@@ -18,6 +18,7 @@ namespace Entity.Model
         public User()
         {
             this.Meals = new HashSet<Meal>();
+            this.Dishes = new HashSet<Dish>();
         }
     
         public int UserId { get; set; }
@@ -30,5 +31,7 @@ namespace Entity.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meal> Meals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dish> Dishes { get; set; }
     }
 }
