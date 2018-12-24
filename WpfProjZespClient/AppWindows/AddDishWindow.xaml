@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfProjZespClient.AppWindows"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="FitLife" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="FitLife" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Grid>
         <Rectangle Height="340" VerticalAlignment="Top">
             <Rectangle.Fill>
@@ -17,7 +17,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Image Source="/WpfProjZespClient;component/Icons/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="20"></Image>
+        <Image Source="/WpfProjZespClient;component/Icons/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="20" MouseLeftButtonDown="Image_MouseLeftButtonDown"></Image>
         <Rectangle Height="300" Width="340" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusX="10" RadiusY="10">
             <Rectangle.Effect>
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" ShadowDepth="1" RenderingBias="Quality" Direction="0"/>

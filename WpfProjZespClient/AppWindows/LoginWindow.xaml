@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfProjZespClient"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="FitLife-Logowanie" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="FitLife-Logowanie" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Grid>
         <Rectangle Height="340" VerticalAlignment="Top">
             <Rectangle.Fill>

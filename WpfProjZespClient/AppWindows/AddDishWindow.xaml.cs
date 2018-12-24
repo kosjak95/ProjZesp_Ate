@@ -95,5 +95,13 @@ namespace WpfProjZespClient.AppWindows
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
         }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Window mainWindow = new MainAppWindow();
+            App.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+            this.Close();
+        }
     }
 }

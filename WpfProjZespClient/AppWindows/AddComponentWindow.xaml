@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfProjZespClient.AppWindows"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="FitLife-Dodawanie składnika" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="FitLife-Dodawanie składnika" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Grid>
         <Rectangle Height="340" VerticalAlignment="Top">
             <Rectangle.Fill>
@@ -18,23 +18,32 @@
             </Rectangle.Fill>
         </Rectangle>
         <Image Source="/WpfProjZespClient;component/Icons/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="20"></Image>
-        <Rectangle Height="300" Width="340" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusX="10" RadiusY="10">
+        <Rectangle Height="350" Width="340" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusX="10" RadiusY="10">
             <Rectangle.Effect>
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" ShadowDepth="1" RenderingBias="Quality" Direction="0"/>
             </Rectangle.Effect>
         </Rectangle>
-        <Grid Height="300" Width="340" VerticalAlignment="Bottom" Margin="0,100">
+        <Grid Height="350" Width="340" VerticalAlignment="Bottom" Margin="0,100">
             <StackPanel VerticalAlignment="Top" Margin="20,20">
                 <TextBox Name="nameTextBox" materialDesign:HintAssist.Hint ="NAZWA PRODUKTU" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
-            <StackPanel VerticalAlignment="Top" Margin="20,90">
+            <StackPanel VerticalAlignment="Top" Margin="20,60">
                 <TextBox Name="manufacturerTextBox" materialDesign:HintAssist.Hint ="PRODUCENT" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
-            <StackPanel VerticalAlignment="Bottom" Margin="20,130">
+            <StackPanel VerticalAlignment="Top" Margin="20,100">
                 <TextBox Name="CaloriesTextBox" materialDesign:HintAssist.Hint ="KALORII W 100G" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
-            <Button VerticalAlignment="Bottom" Margin="90,70" Content="Dodaj!" Click="Button_Click"></Button>
-            <CheckBox x:Name="addOneMoreCheckBox" Content="Chcę dodać nastepny produkt" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Height="22" Width="300" Background="#FF4A31C7"/>
+            <StackPanel VerticalAlignment="Top" Margin="20,140">
+                <TextBox Name="ProteinsTextBox" materialDesign:HintAssist.Hint ="BIAŁEK W 100G" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom" Margin="20,130">
+                <TextBox Name="FatsTextBox" materialDesign:HintAssist.Hint ="TŁUSZCZÓW W 100G" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom" Margin="20,90">
+                <TextBox Name="CarbohydratesTextBox" materialDesign:HintAssist.Hint ="WĘGLOWODANÓW W 100G" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+            </StackPanel>
+            <CheckBox x:Name="addOneMoreCheckBox" Content="Chcę dodać nastepny produkt" HorizontalAlignment="Left" Margin="20,60" VerticalAlignment="Bottom" Height="22" Width="300" Background="#FF4A31C7"/>
+            <Button VerticalAlignment="Bottom" Margin="90,20" Content="Dodaj!" Click="Button_Click" MouseLeftButtonDown="Button_MouseLeftButtonDown"></Button>
         </Grid>
     </Grid>
 </Window>
