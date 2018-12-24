@@ -65,18 +65,57 @@ namespace ProjZesp_Ate.Controllers
                     return false;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
             return true;
         }
 
+        internal static bool AddMeal(int userId, long weigth, Enums.MealType mealType, List<Dish> dishesList)
+        {
+            if (userId == 0 || weigth == 0 || dishesList.Count == 0)
+            {
+                return false;
+            }
+
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                Meal meal = new Meal()
+                {
+                    FKUserId = userId,
+                    Weigth = weigth,
+                    MealType = (short)mealType
+                };
+                foreach (Dish dish in dishesList)
+                {
+                    foreach (Connector con in dish.Connectors)
+                    {
+                        meal.Connectors.Add(new Connector()
+                        {
+                            //TODO: jak by to dodwać optymalnie???????????//
+                            
+                        });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.Write("AddMeal error");
+                return false;
+            }
+
+            return true;
+        }
+
         internal static bool TryCreateDish(int UserId, string Name, string Mass, List<Component> ComponentsList)
         {
             //DONE: insert to db
-            if (Name.Equals("") || Mass.Equals("") || ComponentsList.Count == 0)
+            if (UserId == 0 || Name.Equals("") || Mass.Equals("") || ComponentsList.Count == 0)
+            {
                 return false;
+            }
 
             AteDatabase entity = new AteDatabase();
             try
@@ -87,7 +126,7 @@ namespace ProjZesp_Ate.Controllers
                     Weigth = Convert.ToInt32(Mass),
                     Name = Name,
                 };
-                foreach(Component com in ComponentsList)
+                foreach (Component com in ComponentsList)
                 {
                     dish.Connectors.Add(new Connector()
                     {
@@ -99,9 +138,9 @@ namespace ProjZesp_Ate.Controllers
                 entity.Dishes.Add(dish);
                 entity.SaveChanges();
 
-                
+
             }
-            catch(Exception e)
+            catch (Exception)
             {
                 Console.Write("TryCreateDish Error");
                 return false;
@@ -122,7 +161,7 @@ namespace ProjZesp_Ate.Controllers
                 return new JavaScriptSerializer().Serialize(componentsNamesList);
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new JavaScriptSerializer().Serialize(componentsNamesList);
             }
@@ -131,7 +170,7 @@ namespace ProjZesp_Ate.Controllers
         internal static bool TryCreateUserAccount(User userAccountCreateData)
         {
             AteDatabase entity = new AteDatabase();
-            if(!ValidateUserData(userAccountCreateData))
+            if (!ValidateUserData(userAccountCreateData))
             {
                 return false;
             }
@@ -141,7 +180,7 @@ namespace ProjZesp_Ate.Controllers
                 entity.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -155,7 +194,7 @@ namespace ProjZesp_Ate.Controllers
             {
                 user = entity.Users.Where(w => (w.Login == data.Login || w.Email == data.Login) && w.Password == data.Password).Single();
             }
-            catch(Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -165,7 +204,7 @@ namespace ProjZesp_Ate.Controllers
         internal static bool TryCreateComponent(Component component)
         {
             AteDatabase entity = new AteDatabase();
-            if(!ValidateComponentData(component))
+            if (!ValidateComponentData(component))
             {
                 return false;
             }
@@ -175,7 +214,7 @@ namespace ProjZesp_Ate.Controllers
                 entity.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -184,13 +223,13 @@ namespace ProjZesp_Ate.Controllers
         private static bool ValidateComponentData(Component component)
         {
             if (component.Manufacturer == null ||
-                component.Name== null)
+                component.Name == null)
             {
                 return false;
             }
 
             if (component.Manufacturer.Equals(string.Empty) ||
-                component.Name.Equals(string.Empty)         ||
+                component.Name.Equals(string.Empty) ||
                 component.CaloriesIn100g <= 0)
             {
                 return false;
@@ -206,7 +245,7 @@ namespace ProjZesp_Ate.Controllers
                     return false;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

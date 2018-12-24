@@ -38,6 +38,14 @@ namespace TechnikiInternetowe.Communication
             return await Task.Run(() => HomeController.TryCreateDish(UserId, Name, Mass, ComponentsList));
         }
 
+        [HttpPost]
+        [Route("EatMeal")]
+        public async Task<bool> AddMeal(int FKUserId, long Weigth, short MealType, List<Dish> DishesList)
+        {
+            return await Task.Run(() => HomeController.AddMeal(FKUserId, Weigth, (Enums.MealType)MealType, DishesList));
+
+        }
+
         [HttpGet]
         [Route("GetComponentsList")]
         public async Task<string> GetComponentsList()
