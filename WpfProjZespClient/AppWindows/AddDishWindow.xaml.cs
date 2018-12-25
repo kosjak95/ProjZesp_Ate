@@ -78,6 +78,7 @@ namespace WpfProjZespClient.AppWindows
         {
             bool result = RestClient.Instance.MakePostRequest("TryCreateDish", new DishData()
             {
+                UserName = "mk",
                 Name = nameTextBox.Text,
                 ComponentsList = selectedComponentsList
             });

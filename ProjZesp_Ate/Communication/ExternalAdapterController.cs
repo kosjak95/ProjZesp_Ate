@@ -33,16 +33,16 @@ namespace TechnikiInternetowe.Communication
 
         [HttpPost]
         [Route("TryCreateDish")]
-        public async Task<bool> CreateDish(int UserId, string Name, List<Component> ComponentsList)
+        public async Task<bool> CreateDish(string UserName, string Name, List<Component> ComponentsList)
         {
-            return await Task.Run(() => HomeController.TryCreateDish(UserId, Name, ComponentsList));
+            return await Task.Run(() => HomeController.TryCreateDish(UserName, Name, ComponentsList));
         }
 
         [HttpPost]
         [Route("EatMeal")]
-        public async Task<bool> AddMeal(int FKUserId, long Weigth, short MealType, List<Dish> DishesList)
+        public async Task<bool> AddMeal(string UserName, long Weigth, short MealType, List<Dish> DishesList)
         {
-            return await Task.Run(() => HomeController.AddMeal(FKUserId, Weigth, (Enums.MealType)MealType, DishesList));
+            return await Task.Run(() => HomeController.AddMeal(UserName, Weigth, (Enums.MealType)MealType, DishesList));
 
         }
 
@@ -51,6 +51,22 @@ namespace TechnikiInternetowe.Communication
         public async Task<string> GetComponentsList()
         {
             return await Task.Run(() => HomeController.GetComponentsList());
+        }
+
+        //TODO: Function to get Dishes to add it to meal + create virtual dishes from existing components with connection to component....? 
+        [HttpGet]
+        [Route("GetDishesList")]
+        public async Task<string> GetDishesList(string UserName)
+        {
+            return await Task.Run(() => HomeController.GetDishesList(UserName));
+        }
+
+        [HttpGet]
+        [Route("GetStatistics")]
+        public async Task<string> GetStatistics()
+        {
+            return await Task.Run(() => HomeController.GetComponentsList());
+
         }
     }
 }

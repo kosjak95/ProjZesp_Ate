@@ -72,8 +72,35 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
-        internal static bool AddMeal(int userId, long weigth, Enums.MealType mealType, List<Dish> dishesList)
+        /// <summary>
+        /// Function create meal from given dishes
+        /// in case of eating single component it is needed to create virtual dish connected by Conncetor list in dish with component, but without adding it to Context
+        /// Dishes should be given without connectors but when they are virtual it should ahve Connector list
+        /// not tested cause UI not prepared YET
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="weigth"></param>
+        /// <param name="mealType"></param>
+        /// <param name="dishesList"></param>
+        /// <returns></returns>
+        internal static bool AddMeal(string userName, long weigth, Enums.MealType mealType, List<Dish> dishesList)
         {
+            int userId;
+            try
+            {
+                userId = GetUserByUserName(userName);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write("Missing user name" + e);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.Write("User not exist" + e);
+                return false;
+            }
+
             if (userId == 0 || weigth == 0 || dishesList.Count == 0)
             {
                 return false;
@@ -88,17 +115,31 @@ namespace ProjZesp_Ate.Controllers
                     Weigth = weigth,
                     MealType = (short)mealType
                 };
+                List<Dish> tempDish = new List<Dish>();
                 foreach (Dish dish in dishesList)
+                {
+                    if (dish.Connectors.Count == 0)
+                    {
+                        tempDish.Add(entity.Dishes.Where(w => w.DishId == dish.DishId).Single());
+                    }
+                    else
+                    {
+                        tempDish.Add(dish);
+                    }
+                }
+                foreach (var dish in tempDish)
                 {
                     foreach (Connector con in dish.Connectors)
                     {
                         meal.Connectors.Add(new Connector()
                         {
-                            //TODO: jak by to dodwać optymalnie???????????//
-                            
+                            FK_ComponentId = con.FK_ComponentId,
+                            ComponentWeigth = con.ComponentWeigth
                         });
                     }
                 }
+                entity.Meals.Add(meal);
+                entity.SaveChanges();
             }
             catch (Exception)
             {
@@ -109,15 +150,31 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
-        internal static bool TryCreateDish(int UserId, string Name, List<Component> ComponentsList)
+        internal static bool TryCreateDish(string userName, string Name, List<Component> ComponentsList)
         {
-            if (UserId == 0 || Name.Equals("") || ComponentsList.Count == 0)
+            int userId;
+            try
+            {
+                userId = GetUserByUserName(userName);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write("Missing user name" + e);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.Write("User not exist" + e);
+                return false;
+            }
+
+            if (userId == 0 || Name.Equals("") || ComponentsList.Count == 0)
             {
                 return false;
             }
 
             int TotalDishMass = 0;
-            foreach(Component compo in ComponentsList)
+            foreach (Component compo in ComponentsList)
             {
                 TotalDishMass += (int)compo.TempWeigth;
             }
@@ -127,7 +184,7 @@ namespace ProjZesp_Ate.Controllers
             {
                 Dish dish = new Dish()
                 {
-                    FKUserId = UserId,
+                    FKUserId = userId,
                     Weigth = TotalDishMass,
                     Name = Name,
                 };
@@ -158,13 +215,14 @@ namespace ProjZesp_Ate.Controllers
             List<Component> componentsNamesList = new List<Component>();
 
             AteDatabase entity = new AteDatabase();
+            entity.Configuration.LazyLoadingEnabled = false;
             try
             {
                 List<Component> dane = entity.Components.ToList();
                 return new JavaScriptSerializer().Serialize(dane);
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new JavaScriptSerializer().Serialize(componentsNamesList);
             }
@@ -223,6 +281,97 @@ namespace ProjZesp_Ate.Controllers
             }
         }
 
+        /// <summary>
+        /// Function gets all dishes for user
+        /// To this dishes are added all components in DB converted to dish type
+        /// Dishes dont have connectors
+        /// Components ( virtual dishes ) have connector ( virtual ) pointing on real component in DB
+        /// virtual mean not existing in db 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        internal static string GetDishesList(string userName)
+        {
+            int userId;
+
+            try
+            {
+                userId = GetUserByUserName(userName);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write("Missing user name" + e);
+                return String.Empty;
+            }
+            catch (Exception e)
+            {
+                Console.Write("User not exist" + e);
+                return String.Empty;
+            }
+            //Get all User Dishes
+            List<Dish> dishes = new List<Dish>();
+            AteDatabase entity = new AteDatabase();
+            entity.Configuration.LazyLoadingEnabled = false;
+            try
+            {
+                dishes = entity.Dishes.Where(w => w.FKUserId == userId).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Write("User dont have any dishes" + e);
+            }
+
+            //convert components into dishes
+            try
+            {
+                List<Component> components = entity.Components.ToList();
+                foreach (Component com in components)
+                {
+                    dishes.Add(new Dish()
+                    {
+                        Name = com.Name,
+                        Connectors = new HashSet<Connector>()
+
+                    });
+                    dishes.Last().Connectors.Add(new Connector()
+                    {
+                        FK_ComponentId = com.ComponentId
+                    });
+                }
+
+                return new JavaScriptSerializer().Serialize(dishes);
+            }
+            catch (Exception e)
+            {
+                Console.Write("Convert component to dish FAILED" + e);
+            }
+
+            return String.Empty;
+        }
+
+
+        #region private_func
+
+        private static int GetUserByUserName(string userName)
+        {
+            if (!userName.Equals(""))
+            {
+                throw new ArgumentException();
+            }
+            int userId = 0;
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                userId = entity.Users.Single(s => s.Name == userName).UserId;
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+
+            return userId;
+        }
+
         private static bool ValidateComponentData(Component component)
         {
             if (component.Manufacturer == null ||
@@ -254,6 +403,9 @@ namespace ProjZesp_Ate.Controllers
             }
             return true;
         }
+
+
+        #endregion
 
     }
 }
