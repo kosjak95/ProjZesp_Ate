@@ -141,9 +141,9 @@ namespace ProjZesp_Ate.Controllers
                 entity.Meals.Add(meal);
                 entity.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.Write("AddMeal error");
+                Console.Write("AddMeal error" + e);
                 return false;
             }
 
@@ -184,7 +184,6 @@ namespace ProjZesp_Ate.Controllers
             {
                 Dish dish = new Dish()
                 {
-                    DishId = entity.Dishes.Count(),
                     FKUserId = userId,
                     Weigth = TotalDishMass,
                     Name = Name
@@ -193,7 +192,6 @@ namespace ProjZesp_Ate.Controllers
                 {
                     dish.Connectors.Add(new Connector()
                     {
-                        ConnectorId = entity.Connectors.Count(),
                         FK_ComponentId = com.ComponentId,
                         ComponentWeigth = com.TempWeigth.GetValueOrDefault(),
                     });

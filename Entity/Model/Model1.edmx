@@ -32,7 +32,7 @@
           <Key>
             <PropertyRef Name="DishId" />
           </Key>
-          <Property Name="DishId" Type="int" Nullable="false" />
+          <Property Name="DishId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FKUserId" Type="int" Nullable="false" />
           <Property Name="Weigth" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -41,7 +41,7 @@
           <Key>
             <PropertyRef Name="MealId" />
           </Key>
-          <Property Name="MealId" Type="int" Nullable="false" />
+          <Property Name="MealId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FKUserId" Type="int" Nullable="false" />
           <Property Name="Weigth" Type="bigint" Nullable="false" />
           <Property Name="MealType" Type="smallint" Nullable="false" />
