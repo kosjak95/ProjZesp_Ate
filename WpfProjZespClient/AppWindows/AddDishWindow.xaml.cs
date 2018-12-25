@@ -52,6 +52,14 @@ namespace WpfProjZespClient.AppWindows
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            if(MassTextBox.Text.Length.Equals(0))
+            {
+                MessageBox.Show("Należy podać gramaturę składnika",
+                            "Brak gramatury",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                return;
+            }
             Button newButton = new Button();
             newButton.Content = componentComboBox.SelectedItem as string;
             newButton.Width = 130;
@@ -78,7 +86,7 @@ namespace WpfProjZespClient.AppWindows
         {
             bool result = RestClient.Instance.MakePostRequest("TryCreateDish", new DishData()
             {
-                UserName = "mk",
+                UserLogin = RestClient.Instance.LoggedUserLogin,
                 Name = nameTextBox.Text,
                 ComponentsList = selectedComponentsList
             });

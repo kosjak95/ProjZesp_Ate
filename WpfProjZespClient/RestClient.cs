@@ -17,6 +17,7 @@ namespace TechnikiInterentoweClient
     {
         public string EndPoint { get; set; }
         public HttpVerb HttpMethod { get; set; }
+        public string LoggedUserLogin { get; set; }
         private static RestClient restClientInstance = null;
         private static readonly object m_oPadLock = new object();
 

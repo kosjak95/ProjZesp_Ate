@@ -83,12 +83,12 @@ namespace ProjZesp_Ate.Controllers
         /// <param name="mealType"></param>
         /// <param name="dishesList"></param>
         /// <returns></returns>
-        internal static bool AddMeal(string userName, long weigth, Enums.MealType mealType, List<Dish> dishesList)
+        internal static bool AddMeal(string userLogin, long weigth, Enums.MealType mealType, List<Dish> dishesList)
         {
             int userId;
             try
             {
-                userId = GetUserByUserName(userName);
+                userId = GetUserByUserName(userLogin);
             }
             catch (ArgumentException e)
             {
@@ -150,12 +150,12 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
-        internal static bool TryCreateDish(string userName, string Name, List<Component> ComponentsList)
+        internal static bool TryCreateDish(string userLogin, string Name, List<Component> ComponentsList)
         {
             int userId;
             try
             {
-                userId = GetUserByUserName(userName);
+                userId = GetUserByUserName(userLogin);
             }
             catch (ArgumentException e)
             {
@@ -184,14 +184,16 @@ namespace ProjZesp_Ate.Controllers
             {
                 Dish dish = new Dish()
                 {
+                    DishId = entity.Dishes.Count(),
                     FKUserId = userId,
                     Weigth = TotalDishMass,
-                    Name = Name,
+                    Name = Name
                 };
                 foreach (Component com in ComponentsList)
                 {
                     dish.Connectors.Add(new Connector()
                     {
+                        ConnectorId = entity.Connectors.Count(),
                         FK_ComponentId = com.ComponentId,
                         ComponentWeigth = com.TempWeigth.GetValueOrDefault(),
                     });
@@ -199,10 +201,8 @@ namespace ProjZesp_Ate.Controllers
 
                 entity.Dishes.Add(dish);
                 entity.SaveChanges();
-
-
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.Write("TryCreateDish Error");
                 return false;
@@ -290,13 +290,13 @@ namespace ProjZesp_Ate.Controllers
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        internal static string GetDishesList(string userName)
+        internal static string GetDishesList(string userLogin)
         {
             int userId;
 
             try
             {
-                userId = GetUserByUserName(userName);
+                userId = GetUserByUserName(userLogin);
             }
             catch (ArgumentException e)
             {
@@ -352,9 +352,9 @@ namespace ProjZesp_Ate.Controllers
 
         #region private_func
 
-        private static int GetUserByUserName(string userName)
+        private static int GetUserByUserName(string userLogin)
         {
-            if (!userName.Equals(""))
+            if (userLogin == null || userLogin.Length.Equals(0))
             {
                 throw new ArgumentException();
             }
@@ -362,9 +362,9 @@ namespace ProjZesp_Ate.Controllers
             AteDatabase entity = new AteDatabase();
             try
             {
-                userId = entity.Users.Single(s => s.Name == userName).UserId;
+                userId = entity.Users.Single(s => s.Login == userLogin).UserId;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw new Exception();
             }

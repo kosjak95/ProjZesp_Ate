@@ -42,6 +42,7 @@ namespace WpfProjZespClient
             });
             if (result)
             {
+                RestClient.Instance.LoggedUserLogin = loginTextBox.Text;
                 Window mainWindow = new MainAppWindow();
                 App.Current.MainWindow = mainWindow;
                 mainWindow.Show();
