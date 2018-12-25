@@ -13,4 +13,12 @@ namespace Entity.Model
         public string Mass;
         public List<Component> ComponentsList;
     }
+
+    public class MealData
+    {
+        public string UserLogin;
+        public long Weigth;
+        public short MealType;
+        public List<Dish> DishesList;
+    }
 }

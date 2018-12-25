@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfProjZespClient.AppWindows"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="FitLife" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Grid>
         <Rectangle Height="340" VerticalAlignment="Top">
@@ -22,5 +23,22 @@
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" ShadowDepth="1" RenderingBias="Quality" Direction="0"/>
             </Rectangle.Effect>
         </Rectangle>
+
+        <Grid Height="300" Width="340" VerticalAlignment="Bottom" Margin="0,100">
+            <StackPanel VerticalAlignment="Top" Margin="20,20">
+                <ComboBox Name="dishesComboBox" Loaded="DishesComboBox_Loaded" materialDesign:HintAssist.Hint ="WYBIERZ ZJEDZONE PRODUKTY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Top" Margin="20,70">
+                <ComboBox Name="mealTypeComboBox" Loaded="DishTypeComboBox_Loaded" materialDesign:HintAssist.Hint ="TYP POSIŁKU" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+            </StackPanel>
+            <Button VerticalAlignment="Bottom" Name="AddButton" Click="AddButton_Click"  Margin="90,130" Height="22" Width="80" FontSize="12" Content="Dodaj!"></Button>
+            <Button VerticalAlignment="Bottom" Name="SendButton" Margin="90,90" Content="Gotowe!" Click="SendButton_Click"></Button>
+            <Grid VerticalAlignment="Bottom" Margin="20,10" Height="70">
+                <ScrollViewer>
+                    <WrapPanel Name="SelectedDishesPanel" Orientation="Horizontal">
+                    </WrapPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

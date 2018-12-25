@@ -40,10 +40,10 @@ namespace TechnikiInternetowe.Communication
 
         [HttpPost]
         [Route("EatMeal")]
+        //TODO: Weight is to remove, we have it at dish, now I will send one
         public async Task<bool> AddMeal(string UserLogin, long Weigth, short MealType, List<Dish> DishesList)
         {
             return await Task.Run(() => HomeController.AddMeal(UserLogin, Weigth, (Enums.MealType)MealType, DishesList));
-
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace TechnikiInternetowe.Communication
 
         //TODO: Function to get Dishes to add it to meal + create virtual dishes from existing components with connection to component....? 
         [HttpGet]
-        [Route("GetDishesList")]
+        [Route("GetDishesList/{UserLogin}")]
         public async Task<string> GetDishesList(string UserLogin)
         {
             return await Task.Run(() => HomeController.GetDishesList(UserLogin));

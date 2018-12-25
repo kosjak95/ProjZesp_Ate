@@ -349,7 +349,6 @@ namespace ProjZesp_Ate.Controllers
             return String.Empty;
         }
 
-
         #region private_func
 
         private static int GetUserByUserName(string userLogin)
@@ -404,8 +403,6 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
-
         #endregion
-
     }
 }

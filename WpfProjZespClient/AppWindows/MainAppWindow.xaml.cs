@@ -54,12 +54,14 @@ namespace WpfProjZespClient.AppWindows
             App.Current.MainWindow = window;
             window.Show();
             this.Close();
-            //DONE: kosu add to connector table one more field, with mass of component at meal
         }
 
         private void AddMealButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: handle
+            Window window = new AddMealWindow();
+            App.Current.MainWindow = window;
+            window.Show();
+            this.Close();
         }
     }
 }
