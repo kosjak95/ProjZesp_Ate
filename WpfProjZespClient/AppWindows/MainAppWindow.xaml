@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
         xmlns:local="clr-namespace:WpfProjZespClient.AppWindows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="FitLife" Height="600" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Grid>
@@ -21,6 +23,19 @@
                 <ImageBrush ImageSource="/WpfProjZespClient;component/Icons/home.png"/>
             </Button.Background>
         </Button>
+        <Grid VerticalAlignment="Top" Margin="10,60" Height="100">
+            <WrapPanel Name="SelectedComponentsPanel" Orientation="Horizontal">
+                <ComboBox Name="daysComboBox" Loaded="DaysComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="OKRES ANALIZY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <ComboBox Name="mealTypeComboBox" Loaded="MealTypeComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="TYP POSIŁKÓW" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+            </WrapPanel>
+        </Grid>
+
+        <Grid VerticalAlignment="Bottom" Margin="10,10" Height="390">
+            <oxy:Plot Name="plot">
+                <oxy:LineSeries ItemsSource="{Binding Path=Points}" DataFieldX="X" DataFieldY="Y" />
+            </oxy:Plot>
+        </Grid>
+
         <DockPanel Name="MenuPanel" HorizontalAlignment="Left" Height="550" Margin="0,50,-0.4,0" Visibility="Collapsed" VerticalAlignment="Top" Width="410">
             <DockPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

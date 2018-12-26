@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TechnikiInterentoweClient;
+using static Entity.Model.Enums;
 
 namespace WpfProjZespClient.AppWindows
 {
@@ -80,6 +82,20 @@ namespace WpfProjZespClient.AppWindows
             App.Current.MainWindow = loginWindow;
             loginWindow.Show();
             this.Close();
+        }
+
+        private void DaysComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var combo = sender as ComboBox;
+            combo.ItemsSource = Enum.GetValues(typeof(DaysToAnalize));
+            combo.SelectedIndex = 0;
+        }
+
+        private void MealTypeComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var combo = sender as ComboBox;
+            combo.ItemsSource = Enum.GetValues(typeof(MealType));
+            combo.SelectedIndex = 0;
         }
     }
 }

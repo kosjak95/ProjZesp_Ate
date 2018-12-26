@@ -145,7 +145,7 @@ namespace ProjZesp_Ate.Controllers
                 ///TODO: <see cref="Statistics.PropperDayValues"></see> have to bo read from db and set
                 List<Meal> meals;
 
-                if (kindOfMeal == Enums.MealType.All)
+                if (kindOfMeal == Enums.MealType.Wszystkie)
                 {
                     meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > DateTime.Now.AddDays(-1 * daysNum)).ToList();
                 }
