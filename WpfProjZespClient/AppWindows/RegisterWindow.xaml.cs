@@ -40,9 +40,10 @@ namespace WpfProjZespClient.AppWindows
             if(result)
             {
                 RestClient.Instance.LoggedUserLogin = loginTextBox.Text;
-                Window loginWindow = new UserInfoWindow();
-                App.Current.MainWindow = loginWindow;
-                loginWindow.Show();
+                Window window = new UserInfoWindow();
+                ((UserInfoWindow)window).UpdateAfterRegister = true;
+                App.Current.MainWindow = window;
+                window.Show();
                 this.Close();
             }
             else
