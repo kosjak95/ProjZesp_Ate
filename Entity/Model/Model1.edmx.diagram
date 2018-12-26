@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="AteModel.Dish" Width="1.5" PointX="3.25" PointY="3.75" />
         <AssociationConnector Association="AteModel.FK_Dish_User" />
         <AssociationConnector Association="AteModel.FK_DishId" />
+        <EntityTypeShape EntityType="AteModel.StatisticData" Width="1.5" PointX="0.75" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

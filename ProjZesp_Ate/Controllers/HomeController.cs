@@ -74,11 +74,11 @@ namespace ProjZesp_Ate.Controllers
 
         internal static bool UpdateUserInfo(string userLogin, int age, int growth, int weight, short gender)
         {
-            if(userLogin == null || userLogin.Length.Equals(0))
+            if (userLogin == null || userLogin.Length.Equals(0))
             {
                 return false;
             }
-            if(age <= 0 || age > 120 || growth <= 0 || growth > 300 || weight <= 0)
+            if (age <= 0 || age > 120 || growth <= 0 || growth > 300 || weight <= 0)
             {
                 return false;
             }
@@ -93,12 +93,101 @@ namespace ProjZesp_Ate.Controllers
                 user.Gender = gender;
                 entity.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Fuction create statistics object of <see cref="MealNutritionalValues">MealNutritionalValues</see> eaten in given time peroid
+        /// </summary>
+        /// <param name="userLogin"></param>
+        /// <param name="daysNum"></param>
+        /// <param name="kindOfMeal"></param>
+        /// <returns></returns>
+        internal static string GetStatistics(string userLogin, int daysNum, Enums.MealType kindOfMeal)
+        {
+            if (daysNum == 0)
+            {
+                return String.Empty;
+            }
+
+            int userId;
+            try
+            {
+                userId = GetUserByUserName(userLogin);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write("Missing user name" + e);
+                return String.Empty;
+            }
+            catch (Exception e)
+            {
+                Console.Write("User not exist" + e);
+                return String.Empty;
+            }
+
+            AteDatabase entity = new AteDatabase();
+            Statistics statistics = new Statistics();
+
+            try
+            {
+                User user = entity.Users.Single(s => s.UserId == userId);
+                if (user.Weight.HasValue && user.Growth.HasValue)
+                {
+                    statistics.BMI = user.Weight.Value / (user.Growth.Value * user.Growth.Value);
+                }
+
+                ///TODO: <see cref="Statistics.PropperDayValues"></see> have to bo read from db and set
+                List<Meal> meals;
+
+                if (kindOfMeal == Enums.MealType.All)
+                {
+                    meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > DateTime.Now.AddDays(-1 * daysNum)).ToList();
+                }
+                else
+                {
+                    meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > DateTime.Now.AddDays(-1 * daysNum) && w.MealType == (short)kindOfMeal).ToList();
+                }
+
+                for (int i = daysNum; i > 0; i--)
+                {
+                    List<Meal> tempDayMeals = meals.Where(w => w.MealDate == DateTime.Now.AddDays(-1 * i)).ToList();
+                    foreach (Meal m in tempDayMeals)
+                    {
+                        statistics.DayFoods.Add(new DayFood());
+                        double fats = 0, kcal = 0, prot = 0, carb = 0;
+                        foreach (Connector con in m.Connectors)
+                        {
+                            kcal += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.CaloriesIn100g;
+                            fats += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.FatsIn100g;
+                            prot += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.ProteinIn100g;
+                            carb += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.CarbohydratesIn100g;
+                        }
+
+                        statistics.DayFoods.Last().MealNutritionalVal.Add(new MealNutritionalValues()
+                        {
+                            MealType = (Enums.MealType)m.MealType,
+                            Calories = kcal,
+                            Carbohydrates = carb,
+                            Proteins = prot,
+                            Fats = fats
+                        });
+                    }
+                    return new JavaScriptSerializer().Serialize(statistics);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+            return String.Empty;
         }
 
         /// <summary>
@@ -229,7 +318,7 @@ namespace ProjZesp_Ate.Controllers
                 entity.Dishes.Add(dish);
                 entity.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.Write("TryCreateDish Error");
                 return false;
@@ -390,7 +479,7 @@ namespace ProjZesp_Ate.Controllers
             {
                 userId = entity.Users.Single(s => s.Login == userLogin).UserId;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception();
             }

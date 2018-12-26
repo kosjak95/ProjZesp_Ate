@@ -70,9 +70,9 @@ namespace TechnikiInternetowe.Communication
 
         [HttpGet]
         [Route("GetStatistics")]
-        public async Task<string> GetStatistics()
+        public async Task<string> GetStatistics(string UserLogin, int DaysNum, List<Enums.MealType> KindOfMeal)
         {
-            return await Task.Run(() => HomeController.GetComponentsList());
+            return await Task.Run(() => HomeController.GetStatistics(UserLogin, DaysNum, KindOfMeal));
         }
     }
 }

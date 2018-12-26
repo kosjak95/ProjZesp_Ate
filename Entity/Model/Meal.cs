@@ -24,6 +24,7 @@ namespace Entity.Model
         public int FKUserId { get; set; }
         public long Weigth { get; set; }
         public short MealType { get; set; }
+        public System.DateTime MealDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Connector> Connectors { get; set; }

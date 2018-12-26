@@ -30,4 +30,35 @@ namespace Entity.Model
         public int Weight;
         public short Gender;
     }
+
+    public class Statistics
+    {
+        public List<DayFood> DayFoods { get; set; }
+        public MealNutritionalValues PropperDayValues { get; set; }
+        public int BMI { get; set; }
+
+        public Statistics()
+        {
+            DayFoods = new List<DayFood>();
+        }
+
+    }
+
+    public class DayFood
+    {
+        public DayFood()
+        {
+            MealNutritionalVal = new List<MealNutritionalValues>();
+        }
+        public List<MealNutritionalValues> MealNutritionalVal { get; set; }
+    }
+
+    public class MealNutritionalValues
+    {
+        public Enums.MealType MealType { get; set; }
+        public double Fats { get; set; }
+        public double Proteins { get; set; }
+        public double Carbohydrates { get; set; }
+        public double Calories { get; set; }
+    }
 }

@@ -42,9 +42,23 @@
             <PropertyRef Name="MealId" />
           </Key>
           <Property Name="MealId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MealDate" Type="date" Nullable="false" />
           <Property Name="FKUserId" Type="int" Nullable="false" />
           <Property Name="Weigth" Type="bigint" Nullable="false" />
           <Property Name="MealType" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatisticData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="smallint" Nullable="false" />
+          <Property Name="WeightFrom" Type="int" Nullable="false" />
+          <Property Name="WeigthTo" Type="int" Nullable="false" />
+          <Property Name="DayKcal" Type="int" Nullable="false" />
+          <Property Name="DayFats" Type="int" Nullable="false" />
+          <Property Name="DayProtein" Type="int" Nullable="false" />
+          <Property Name="DayCarnohydrates" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -127,6 +141,7 @@
           <EntitySet Name="Connector" EntityType="Self.Connector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatisticData" EntityType="Self.StatisticData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ComponentId" Association="Self.FK_ComponentId">
             <End Role="Component" EntitySet="Component" />
@@ -190,6 +205,7 @@
           <Property Name="MealType" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Connectors" Relationship="Self.FK_MealId" FromRole="Meal" ToRole="Connector" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserId" FromRole="Meal" ToRole="Users" />
+          <Property Name="MealDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -271,6 +287,7 @@
             <End Role="Dish" EntitySet="Dishes" />
             <End Role="Connector" EntitySet="Connectors" />
           </AssociationSet>
+          <EntitySet Name="StatisticDatas" EntityType="AteModel.StatisticData" />
         </EntityContainer>
         <EntityType Name="Dish">
           <Key>
@@ -307,6 +324,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="StatisticData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="Int16" Nullable="false" />
+          <Property Name="WeightFrom" Type="Int32" Nullable="false" />
+          <Property Name="WeigthTo" Type="Int32" Nullable="false" />
+          <Property Name="DayKcal" Type="Int32" Nullable="false" />
+          <Property Name="DayFats" Type="Int32" Nullable="false" />
+          <Property Name="DayProtein" Type="Int32" Nullable="false" />
+          <Property Name="DayCarnohydrates" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -341,6 +371,7 @@
           <EntitySetMapping Name="Meals">
             <EntityTypeMapping TypeName="AteModel.Meal">
               <MappingFragment StoreEntitySet="Meal">
+                <ScalarProperty Name="MealDate" ColumnName="MealDate" />
                 <ScalarProperty Name="MealId" ColumnName="MealId" />
                 <ScalarProperty Name="FKUserId" ColumnName="FKUserId" />
                 <ScalarProperty Name="Weigth" ColumnName="Weigth" />
@@ -372,6 +403,20 @@
                 <ScalarProperty Name="Weigth" ColumnName="Weigth" />
                 <ScalarProperty Name="FKUserId" ColumnName="FKUserId" />
                 <ScalarProperty Name="DishId" ColumnName="DishId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatisticDatas">
+            <EntityTypeMapping TypeName="AteModel.StatisticData">
+              <MappingFragment StoreEntitySet="StatisticData">
+                <ScalarProperty Name="DayCarnohydrates" ColumnName="DayCarnohydrates" />
+                <ScalarProperty Name="DayProtein" ColumnName="DayProtein" />
+                <ScalarProperty Name="DayFats" ColumnName="DayFats" />
+                <ScalarProperty Name="DayKcal" ColumnName="DayKcal" />
+                <ScalarProperty Name="WeigthTo" ColumnName="WeigthTo" />
+                <ScalarProperty Name="WeightFrom" ColumnName="WeightFrom" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

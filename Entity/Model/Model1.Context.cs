@@ -30,5 +30,6 @@ namespace Entity.Model
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Dish> Dishes { get; set; }
+        public virtual DbSet<StatisticData> StatisticDatas { get; set; }
     }
 }

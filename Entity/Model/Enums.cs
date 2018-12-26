@@ -12,7 +12,8 @@ namespace Entity.Model
         {
             Sniadanie = 0,
             Obiad = 1,
-            Kolacja = 2
+            Kolacja = 2,
+            All = 9
         }
 
         public enum GenderType :short
