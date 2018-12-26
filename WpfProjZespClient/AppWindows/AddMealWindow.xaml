@@ -28,17 +28,17 @@
             <StackPanel VerticalAlignment="Top" Margin="20,20">
                 <ComboBox Name="dishesComboBox" Loaded="DishesComboBox_Loaded" materialDesign:HintAssist.Hint ="WYBIERZ ZJEDZONE PRODUKTY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
             </StackPanel>
-            <StackPanel VerticalAlignment="Top" Margin="20,70">
-                <ComboBox Name="mealTypeComboBox" Loaded="DishTypeComboBox_Loaded" materialDesign:HintAssist.Hint ="TYP POSIŁKU" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-            </StackPanel>
-            <Button VerticalAlignment="Bottom" Name="AddButton" Click="AddButton_Click"  Margin="90,130" Height="22" Width="80" FontSize="12" Content="Dodaj!"></Button>
-            <Button VerticalAlignment="Bottom" Name="SendButton" Margin="90,90" Content="Gotowe!" Click="SendButton_Click"></Button>
-            <Grid VerticalAlignment="Bottom" Margin="20,10" Height="70">
+            <Button VerticalAlignment="Top" Name="AddButton" Click="AddButton_Click"  Margin="70,70" Height="22" Width="80" FontSize="12" Content="Dodaj!"></Button>
+            <Grid VerticalAlignment="Top" Margin="20,110" Height="70">
                 <ScrollViewer>
                     <WrapPanel Name="SelectedDishesPanel" Orientation="Horizontal">
                     </WrapPanel>
                 </ScrollViewer>
             </Grid>
+            <StackPanel VerticalAlignment="Bottom" Margin="20,60">
+                <ComboBox Name="mealTypeComboBox" Loaded="DishTypeComboBox_Loaded" materialDesign:HintAssist.Hint ="TYP POSIŁKU" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+            </StackPanel>
+            <Button VerticalAlignment="Bottom" Name="SendButton" Margin="90,10" Content="Gotowe!" Click="SendButton_Click"></Button>
         </Grid>
     </Grid>
 </Window>

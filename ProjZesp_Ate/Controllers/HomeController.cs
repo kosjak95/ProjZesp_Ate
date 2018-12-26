@@ -72,6 +72,12 @@ namespace ProjZesp_Ate.Controllers
             return true;
         }
 
+        internal static bool UpdateUserInfo(string userLogin, int age, int growth, int weight, short gender)
+        {
+            //TODO: HANDLE
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Function create meal from given dishes
         /// in case of eating single component it is needed to create virtual dish connected by Conncetor list in dish with component, but without adding it to Context

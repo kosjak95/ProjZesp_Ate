@@ -39,8 +39,8 @@ namespace WpfProjZespClient.AppWindows
             });
             if(result)
             {
-                Window loginWindow = new LoginWindow();
-                ((LoginWindow)loginWindow).SetVisibilitySuccLoginLabel(Visibility.Visible);
+                RestClient.Instance.LoggedUserLogin = loginTextBox.Text;
+                Window loginWindow = new UserInfoWindow();
                 App.Current.MainWindow = loginWindow;
                 loginWindow.Show();
                 this.Close();

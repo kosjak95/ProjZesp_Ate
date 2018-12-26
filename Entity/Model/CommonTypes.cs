@@ -21,4 +21,13 @@ namespace Entity.Model
         public short MealType;
         public List<Dish> DishesList;
     }
+
+    public class UserInfo
+    {
+        public string UserLogin;
+        public int Age;
+        public int Growth;
+        public int Weight;
+        public short Gender;
+    }
 }

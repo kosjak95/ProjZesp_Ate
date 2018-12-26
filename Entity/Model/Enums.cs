@@ -14,5 +14,11 @@ namespace Entity.Model
             Obiad = 1,
             Kolacja = 2
         }
+
+        public enum GenderType :short
+        {
+            Kobieta = 0,
+            Mezczyzna = 1
+        }
     }
 }

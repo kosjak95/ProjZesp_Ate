@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TechnikiInterentoweClient;
 
 namespace WpfProjZespClient.AppWindows
 {
@@ -61,6 +62,23 @@ namespace WpfProjZespClient.AppWindows
             Window window = new AddMealWindow();
             App.Current.MainWindow = window;
             window.Show();
+            this.Close();
+        }
+
+        private void UpdateUserInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window loginWindow = new UserInfoWindow();
+            App.Current.MainWindow = loginWindow;
+            loginWindow.Show();
+            this.Close();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            RestClient.Instance.LoggedUserLogin = null;
+            Window loginWindow = new LoginWindow();
+            App.Current.MainWindow = loginWindow;
+            loginWindow.Show();
             this.Close();
         }
     }

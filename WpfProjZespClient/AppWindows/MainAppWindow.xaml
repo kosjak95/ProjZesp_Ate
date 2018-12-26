@@ -38,6 +38,8 @@
                 <Button Name="addComponentButton" Content="Dodaj składnik" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddComponentButton_Click"/>
                 <Button Name="addDishButton" Content="Dodaj danie" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddDishButton_Click"/>
                 <Button Name="addMealButton" Content="Dodaj posiłek" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddMealButton_Click"/>
+                <Button Name="updateUserInfoButton" Content="Dane użytkownika" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="UpdateUserInfoButton_Click"/>
+                <Button Name="logoutButton" Content="Wyloguj" Width="270" Background="{x:Null}" BorderBrush="{x:Null}" Click="LogoutButton_Click"/>
             </ListView>
         </DockPanel>
     </Grid>

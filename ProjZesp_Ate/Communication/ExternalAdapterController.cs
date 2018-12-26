@@ -46,6 +46,13 @@ namespace TechnikiInternetowe.Communication
             return await Task.Run(() => HomeController.AddMeal(UserLogin, Weigth, (Enums.MealType)MealType, DishesList));
         }
 
+        [HttpPost]
+        [Route("UpdateUserInfo")]
+        public async Task<bool> UpdateUserInfo(string UserLogin, int Age, int Growth, int Weight, short Gender)
+        {
+            return await Task.Run(() => HomeController.UpdateUserInfo(UserLogin, Age, Growth, Weight, Gender));
+        }
+
         [HttpGet]
         [Route("GetComponentsList")]
         public async Task<string> GetComponentsList()
@@ -66,7 +73,6 @@ namespace TechnikiInternetowe.Communication
         public async Task<string> GetStatistics()
         {
             return await Task.Run(() => HomeController.GetComponentsList());
-
         }
     }
 }

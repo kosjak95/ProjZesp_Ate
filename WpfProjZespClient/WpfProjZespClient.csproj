@@ -77,6 +77,9 @@
     <Compile Include="AppWindows\MainAppWindow.xaml.cs">
       <DependentUpon>MainAppWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppWindows\UserInfoWindow.xaml.cs">
+      <DependentUpon>UserInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RestClient.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -109,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppWindows\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppWindows\UserInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
