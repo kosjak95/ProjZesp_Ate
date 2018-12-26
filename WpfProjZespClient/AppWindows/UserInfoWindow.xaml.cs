@@ -22,8 +22,11 @@ namespace WpfProjZespClient.AppWindows
     /// </summary>
     public partial class UserInfoWindow : Window
     {
+        public bool UpdateAfterRegister { get; set; }
+
         public UserInfoWindow()
         {
+            UpdateAfterRegister = false;
             InitializeComponent();
         }
 
@@ -43,11 +46,19 @@ namespace WpfProjZespClient.AppWindows
             
             if (result)
             {
-                RestClient.Instance.LoggedUserLogin = null;
-                Window loginWindow = new LoginWindow();
-                ((LoginWindow)loginWindow).SetVisibilitySuccLoginLabel(Visibility.Visible);
-                App.Current.MainWindow = loginWindow;
-                loginWindow.Show();
+                Window window = null;
+                if (UpdateAfterRegister)
+                {
+                    RestClient.Instance.LoggedUserLogin = null;
+                    window = new LoginWindow();
+                    ((LoginWindow)window).SetVisibilitySuccLoginLabel(Visibility.Visible);
+                }
+                else
+                {
+                    window = new MainAppWindow();
+                }
+                App.Current.MainWindow = window;
+                window.Show();
                 this.Close();
             }
 
@@ -62,6 +73,14 @@ namespace WpfProjZespClient.AppWindows
             var combo = sender as ComboBox;
             combo.ItemsSource = Enum.GetValues(typeof(GenderType));
             combo.SelectedIndex = 0;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Window mainWindow = new MainAppWindow();
+            App.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+            this.Close();
         }
     }
 }
