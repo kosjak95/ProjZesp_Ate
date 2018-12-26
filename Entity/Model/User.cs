@@ -28,6 +28,10 @@ namespace Entity.Model
         public string Password { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }
+        public Nullable<int> Age { get; set; }
+        public Nullable<int> Growth { get; set; }
+        public Nullable<int> Weight { get; set; }
+        public Nullable<short> Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meal> Meals { get; set; }

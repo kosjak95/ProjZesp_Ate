@@ -74,8 +74,31 @@ namespace ProjZesp_Ate.Controllers
 
         internal static bool UpdateUserInfo(string userLogin, int age, int growth, int weight, short gender)
         {
-            //TODO: HANDLE
-            throw new NotImplementedException();
+            if(userLogin == null || userLogin.Length.Equals(0))
+            {
+                return false;
+            }
+            if(age <= 0 || age > 120 || growth <= 0 || growth > 300 || weight <= 0)
+            {
+                return false;
+            }
+
+            AteDatabase entity = new AteDatabase();
+            try
+            {
+                User user = entity.Users.Single(s => s.Login == userLogin);
+                user.Age = age;
+                user.Growth = growth;
+                user.Weight = weight;
+                user.Gender = gender;
+                entity.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

@@ -57,6 +57,10 @@
           <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Adress" Type="nvarchar" MaxLength="30" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Growth" Type="int" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="Gender" Type="smallint" />
         </EntityType>
         <Association Name="FK_ComponentId">
           <End Role="Component" Type="Self.Component" Multiplicity="1" />
@@ -200,6 +204,10 @@
           <Property Name="Adress" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Meals" Relationship="Self.FK_UserId" FromRole="Users" ToRole="Meal" />
           <NavigationProperty Name="Dishes" Relationship="AteModel.FK_Dish_User" FromRole="User" ToRole="Dish" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Growth" Type="Int32" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Gender" Type="Int16" />
         </EntityType>
         <Association Name="FK_ComponentId">
           <End Role="Component" Type="Self.Component" Multiplicity="1" />
@@ -343,6 +351,10 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AteModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Growth" ColumnName="Growth" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
