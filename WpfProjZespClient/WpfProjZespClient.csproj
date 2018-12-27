@@ -92,6 +92,7 @@
     <Compile Include="AppWindows\UserInfoWindow.xaml.cs">
       <DependentUpon>UserInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OxyPlotModel.cs" />
     <Compile Include="RestClient.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>

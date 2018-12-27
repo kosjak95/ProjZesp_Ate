@@ -25,14 +25,14 @@
         </Button>
         <Grid VerticalAlignment="Top" Margin="10,60" Height="100">
             <WrapPanel Name="SelectedComponentsPanel" Orientation="Horizontal">
-                <ComboBox Name="daysComboBox" Loaded="DaysComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="OKRES ANALIZY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                <ComboBox Name="mealTypeComboBox" Loaded="MealTypeComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="TYP POSIŁKÓW" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <ComboBox Name="daysComboBox" SelectionChanged="DaysComboBox_SelectionChanged" Loaded="DaysComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="OKRES ANALIZY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <ComboBox Name="mealTypeComboBox" SelectionChanged="MealTypeComboBox_SelectionChanged" Loaded="MealTypeComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="TYP POSIŁKÓW" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
             </WrapPanel>
         </Grid>
 
         <Grid VerticalAlignment="Bottom" Margin="10,10" Height="390">
             <oxy:Plot Name="plot">
-                <oxy:LineSeries ItemsSource="{Binding Path=Points}" DataFieldX="X" DataFieldY="Y" />
+                <oxy:LineSeries ItemsSource="{Binding Path=oxyPlotModel}" />
             </oxy:Plot>
         </Grid>
 

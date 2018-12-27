@@ -35,7 +35,7 @@ namespace Entity.Model
     {
         public List<DayFood> DayFoods { get; set; }
         public MealNutritionalValues PropperDayValues { get; set; }
-        public int BMI { get; set; }
+        public double BMI { get; set; }
 
         public Statistics()
         {
