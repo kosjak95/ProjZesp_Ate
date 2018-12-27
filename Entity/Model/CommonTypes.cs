@@ -40,6 +40,7 @@ namespace Entity.Model
         public Statistics()
         {
             DayFoods = new List<DayFood>();
+            PropperDayValues = new MealNutritionalValues();
         }
 
     }

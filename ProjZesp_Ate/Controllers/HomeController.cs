@@ -133,16 +133,33 @@ namespace ProjZesp_Ate.Controllers
 
             AteDatabase entity = new AteDatabase();
             Statistics statistics = new Statistics();
-
+            User user = null;
             try
             {
-                User user = entity.Users.Single(s => s.UserId == userId);
+                user = entity.Users.Single(s => s.UserId == userId);
                 if (user.Weight.HasValue && user.Growth.HasValue)
                 {
                     statistics.BMI = user.Weight.Value / (user.Growth.Value * user.Growth.Value);
                 }
+            }
+            catch(Exception e)
+            {
+                Console.Write("Error in getting user" + e);
+            }
 
-                ///TODO: <see cref="Statistics.PropperDayValues"></see> have to bo read from db and set
+            try
+            {
+                ///DONE: <see cref="Statistics.PropperDayValues"></see> have to bo read from db and set!!!
+                StatisticData statData = entity.StatisticDatas.Where(w => w.WeightFrom < user.Weight && w.WeigthTo > user.Weight).Single();
+
+            }
+            catch(Exception e)
+            {
+                Console.Write("Statistics Propper Day Values not found" + e);
+            }
+            try
+            {
+
                 List<Meal> meals;
 
                 if (kindOfMeal == Enums.MealType.All)
