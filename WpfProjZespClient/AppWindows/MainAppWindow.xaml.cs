@@ -48,6 +48,7 @@ namespace WpfProjZespClient.AppWindows
                                                            Enum.Parse(typeof(MealType), mealTypeComboBox.SelectedItem.ToString()));
 
             Statistics statistics = new JavaScriptSerializer().Deserialize<Statistics>(result);
+            BMItextBox.SelectedText = statistics.BMI.ToString();
             oxyPlotModel.Draw(statistics, (SubstancesType)SubstanceTypeComboBox.SelectedIndex);
             plot1.Model = oxyPlotModel.PlotModel;
         }

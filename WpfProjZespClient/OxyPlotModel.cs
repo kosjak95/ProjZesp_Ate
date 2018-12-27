@@ -64,45 +64,44 @@ namespace WpfProjZespClient
             Ynorm.Add(0);
             Ynorm.Add(0);
 
-            int tmpIndex = 1;
+            int index = 1;
             foreach (DayFood dayFood in statistics.DayFoods)
             {
-                if(dayFood.MealNutritionalVal.Count == 0)
+                X.Add(index++);
+                if (dayFood.MealNutritionalVal.Count == 0)
                 {
+                    Y.Add(0);
                     continue;
                 }
-                X.Add(tmpIndex);
-                tmpIndex += 100;
-                switch(substancesType)
+                Y.Add(0);
+                foreach (MealNutritionalValues m in dayFood.MealNutritionalVal)
                 {
-                    case SubstancesType.Kalorie:
-                        Ynorm[0] = statistics.PropperDayValues.Calories;
-                        Y.Add(dayFood.MealNutritionalVal[0].Calories);
-                        break;
-                    case SubstancesType.Tluszcze:
-                        Ynorm[0] = statistics.PropperDayValues.Fats;
-                        Y.Add(dayFood.MealNutritionalVal[0].Fats);
-                        break;
-                    case SubstancesType.Weglowodany:
-                        Ynorm[0] = statistics.PropperDayValues.Carbohydrates;
-                        Y.Add(dayFood.MealNutritionalVal[0].Carbohydrates);
-                        break;
-                    case SubstancesType.Bialka:
-                        Ynorm[0] = statistics.PropperDayValues.Proteins;
-                        Y.Add(dayFood.MealNutritionalVal[0].Proteins);
-                        break;
+                    switch (substancesType)
+                    {
+                        case SubstancesType.Kalorie:
+                            Ynorm[0] = statistics.PropperDayValues.Calories;
+                            Y[Y.Count-1] += m.Calories;
+                            break;
+                        case SubstancesType.Tluszcze:
+                            Ynorm[0] = statistics.PropperDayValues.Fats;
+                            Y[Y.Count - 1] += m.Fats;
+                            break;
+                        case SubstancesType.Weglowodany:
+                            Ynorm[0] = statistics.PropperDayValues.Carbohydrates;
+                            Y[Y.Count - 1] += m.Carbohydrates;
+                            break;
+                        case SubstancesType.Bialka:
+                            Ynorm[0] = statistics.PropperDayValues.Proteins;
+                            Y[Y.Count - 1] += m.Proteins;
+                            break;
+                    }
                 }
             }
             Ynorm[1] = Ynorm[0];
             Xnorm.Add(X.First());
             Xnorm.Add(X.Last());
-            if(statistics.DayFoods.Count == 1)
-            {
-                Xnorm[0] = 0;
-                Xnorm[1] *= 2;
-            }
 
-            AddSeries(OxyPlot.MarkerType.Plus, chartColors[1], "Użytkownik", X, Y);
+            AddSeries(OxyPlot.MarkerType.None, chartColors[1], "Użytkownik", X, Y);
             AddSeries(OxyPlot.MarkerType.None, chartColors[0], "Norma", Xnorm, Ynorm);
         }
 
