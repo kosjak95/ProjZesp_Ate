@@ -17,7 +17,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Image Source="/WpfProjZespClient;component/Icons/home.png" Width="100" Height="100" VerticalAlignment="Top" Margin="20"></Image>
+        <Image Source="/WpfProjZespClient;component/Icons/home.png" Width="100" Height="100" MouseLeftButtonDown="Image_MouseLeftButtonDown"  VerticalAlignment="Top" Margin="20"></Image>
         <Rectangle Height="350" Width="340" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusX="10" RadiusY="10">
             <Rectangle.Effect>
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" ShadowDepth="1" RenderingBias="Quality" Direction="0"/>
@@ -43,7 +43,7 @@
                 <TextBox Name="CarbohydratesTextBox" materialDesign:HintAssist.Hint ="WĘGLOWODANÓW W 100G" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
             </StackPanel>
             <CheckBox x:Name="addOneMoreCheckBox" Content="Chcę dodać nastepny produkt" HorizontalAlignment="Left" Margin="20,60" VerticalAlignment="Bottom" Height="22" Width="300" Background="#FF4A31C7"/>
-            <Button VerticalAlignment="Bottom" Margin="90,20" Content="Dodaj!" Click="Button_Click" MouseLeftButtonDown="Button_MouseLeftButtonDown"></Button>
+            <Button VerticalAlignment="Bottom" Margin="90,20" Content="Dodaj!" Click="Button_Click"></Button>
         </Grid>
     </Grid>
 </Window>

@@ -139,7 +139,7 @@ namespace ProjZesp_Ate.Controllers
                 user = entity.Users.Single(s => s.UserId == userId);
                 if (user.Weight.HasValue && user.Growth.HasValue)
                 {
-                    statistics.BMI = user.Weight.Value / (user.Growth.Value * user.Growth.Value);
+                    statistics.BMI = 1.0 * user.Weight.Value / (user.Growth.Value * user.Growth.Value);
                 }
             }
             catch(Exception e)
@@ -162,28 +162,30 @@ namespace ProjZesp_Ate.Controllers
 
                 List<Meal> meals;
 
-                if (kindOfMeal == Enums.MealType.All)
+                DateTime statisticTime = DateTime.Now.AddDays(-1 * daysNum);
+                if (kindOfMeal == Enums.MealType.Wszystkie)
                 {
-                    meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > DateTime.Now.AddDays(-1 * daysNum)).ToList();
+                    meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > statisticTime).ToList();
                 }
                 else
                 {
-                    meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > DateTime.Now.AddDays(-1 * daysNum) && w.MealType == (short)kindOfMeal).ToList();
+                    meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > statisticTime && w.MealType == (short)kindOfMeal).ToList();
                 }
 
-                for (int i = daysNum; i > 0; i--)
+                for (int i = daysNum; i >= 0; i--)
                 {
-                    List<Meal> tempDayMeals = meals.Where(w => w.MealDate == DateTime.Now.AddDays(-1 * i)).ToList();
+                    DateTime statisticDate = DateTime.Now.AddDays(-1 * i).Date;
+                    List<Meal> tempDayMeals = meals.Where(w => w.MealDate == statisticDate).ToList();
                     foreach (Meal m in tempDayMeals)
                     {
                         statistics.DayFoods.Add(new DayFood());
                         double fats = 0, kcal = 0, prot = 0, carb = 0;
                         foreach (Connector con in m.Connectors)
                         {
-                            kcal += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.CaloriesIn100g;
-                            fats += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.FatsIn100g;
-                            prot += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.ProteinIn100g;
-                            carb += con.ComponentWeigth.GetValueOrDefault() / 100 * con.Component.CarbohydratesIn100g;
+                            kcal += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.CaloriesIn100g;
+                            fats += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.FatsIn100g;
+                            prot += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.ProteinIn100g;
+                            carb += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.CarbohydratesIn100g;
                         }
 
                         statistics.DayFoods.Last().MealNutritionalVal.Add(new MealNutritionalValues()
@@ -195,15 +197,13 @@ namespace ProjZesp_Ate.Controllers
                             Fats = fats
                         });
                     }
-                    return new JavaScriptSerializer().Serialize(statistics);
                 }
+                return new JavaScriptSerializer().Serialize(statistics);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
             }
-
-
             return String.Empty;
         }
 
@@ -248,7 +248,8 @@ namespace ProjZesp_Ate.Controllers
                 {
                     FKUserId = userId,
                     Weigth = weigth,
-                    MealType = (short)mealType
+                    MealType = (short)mealType,
+                    MealDate = DateTime.Now
                 };
                 List<Dish> tempDish = new List<Dish>();
                 foreach (Dish dish in dishesList)

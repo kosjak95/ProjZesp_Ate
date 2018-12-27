@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TechnikiInterentoweClient;
+using static Entity.Model.Enums;
 
 namespace WpfProjZespClient.AppWindows
 {
@@ -19,12 +21,31 @@ namespace WpfProjZespClient.AppWindows
     /// </summary>
     public partial class MainAppWindow : Window
     {
+        private OxyPlotModel oxyPlotModel;
+
         public MainAppWindow()
-        { 
+        {
+            oxyPlotModel = new OxyPlotModel();
+            this.DataContext = oxyPlotModel;
             InitializeComponent();
         }
 
-        private void changeMenuVisibility()
+        public void LoadStatistic()
+        {
+            if (daysComboBox.SelectedItem == null ||
+                mealTypeComboBox.SelectedItem == null ||
+                daysComboBox.SelectedItem.ToString().Equals("") || 
+                mealTypeComboBox.SelectedItem.ToString().Equals(""))
+            {
+                return;
+            }
+            string result = RestClient.Instance.MakeGetRequest("GetStatistics/" + RestClient.Instance.LoggedUserLogin + "/" +
+                                                           (short)Enum.Parse(typeof(DaysToAnalize), daysComboBox.SelectedItem.ToString()) + "/" +
+                                                           Enum.Parse(typeof(MealType), mealTypeComboBox.SelectedItem.ToString()));
+            int a = 0;
+        }
+
+        private void ChangeMenuVisibility()
         {
             if (MenuPanel.Visibility.Equals(Visibility.Visible))
             {
@@ -38,7 +59,7 @@ namespace WpfProjZespClient.AppWindows
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            changeMenuVisibility();
+            ChangeMenuVisibility();
         }
 
         private void AddComponentButton_Click(object sender, RoutedEventArgs e)
@@ -80,6 +101,30 @@ namespace WpfProjZespClient.AppWindows
             App.Current.MainWindow = loginWindow;
             loginWindow.Show();
             this.Close();
+        }
+
+        private void DaysComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var combo = sender as ComboBox;
+            combo.ItemsSource = Enum.GetValues(typeof(DaysToAnalize));
+            combo.SelectedIndex = 0;
+        }
+
+        private void MealTypeComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var combo = sender as ComboBox;
+            combo.ItemsSource = Enum.GetValues(typeof(MealType));
+            combo.SelectedIndex = 0;
+        }
+
+        private void DaysComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadStatistic();
+        }
+
+        private void MealTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadStatistic();
         }
     }
 }

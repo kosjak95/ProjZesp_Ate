@@ -13,13 +13,20 @@ namespace Entity.Model
             Sniadanie = 0,
             Obiad = 1,
             Kolacja = 2,
-            All = 9
+            Wszystkie = 9
         }
 
         public enum GenderType :short
         {
             Kobieta = 0,
             Mezczyzna = 1
+        }
+
+        public enum DaysToAnalize :short
+        {
+            Dzien = 1,
+            Tydzien = 7,
+            Miesiac = 30
         }
     }
 }

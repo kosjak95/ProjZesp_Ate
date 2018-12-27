@@ -59,7 +59,7 @@ namespace WpfProjZespClient.AppWindows
                             MessageBoxImage.Information);
         }
 
-        private void Button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Window mainWindow = new MainAppWindow();
             App.Current.MainWindow = mainWindow;
