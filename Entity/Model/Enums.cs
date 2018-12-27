@@ -28,5 +28,13 @@ namespace Entity.Model
             Tydzien = 7,
             Miesiac = 30
         }
+
+        public enum SubstancesType :short
+        {
+            Kalorie = 0,
+            Bialka = 1,
+            Tluszcze = 2,
+            Weglowodany = 3
+        }
     }
 }

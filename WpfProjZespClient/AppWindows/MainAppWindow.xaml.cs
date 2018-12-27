@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Entity.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -34,15 +36,20 @@ namespace WpfProjZespClient.AppWindows
         {
             if (daysComboBox.SelectedItem == null ||
                 mealTypeComboBox.SelectedItem == null ||
+                SubstanceTypeComboBox.SelectedItem == null ||
                 daysComboBox.SelectedItem.ToString().Equals("") || 
-                mealTypeComboBox.SelectedItem.ToString().Equals(""))
+                mealTypeComboBox.SelectedItem.ToString().Equals("") ||
+                SubstanceTypeComboBox.SelectedItem.ToString().Equals(""))
             {
                 return;
             }
             string result = RestClient.Instance.MakeGetRequest("GetStatistics/" + RestClient.Instance.LoggedUserLogin + "/" +
                                                            (short)Enum.Parse(typeof(DaysToAnalize), daysComboBox.SelectedItem.ToString()) + "/" +
                                                            Enum.Parse(typeof(MealType), mealTypeComboBox.SelectedItem.ToString()));
-            int a = 0;
+
+            Statistics statistics = new JavaScriptSerializer().Deserialize<Statistics>(result);
+            oxyPlotModel.Draw(statistics, (SubstancesType)SubstanceTypeComboBox.SelectedIndex);
+            plot1.Model = oxyPlotModel.PlotModel;
         }
 
         private void ChangeMenuVisibility()
@@ -125,6 +132,18 @@ namespace WpfProjZespClient.AppWindows
         private void MealTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadStatistic();
+        }
+
+        private void SubstanceTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadStatistic();
+        }
+
+        private void SubstanceTypeComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var combo = sender as ComboBox;
+            combo.ItemsSource = Enum.GetValues(typeof(SubstancesType));
+            combo.SelectedIndex = 0;
         }
     }
 }

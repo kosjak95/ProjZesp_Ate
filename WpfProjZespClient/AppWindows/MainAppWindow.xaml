@@ -23,17 +23,16 @@
                 <ImageBrush ImageSource="/WpfProjZespClient;component/Icons/home.png"/>
             </Button.Background>
         </Button>
-        <Grid VerticalAlignment="Top" Margin="10,60" Height="100">
-            <WrapPanel Name="SelectedComponentsPanel" Orientation="Horizontal">
+        <Grid VerticalAlignment="Top" Margin="10,50" Height="100">
+            <WrapPanel Name="SelectedComponentsPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <ComboBox Name="daysComboBox" SelectionChanged="DaysComboBox_SelectionChanged" Loaded="DaysComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="OKRES ANALIZY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                <ComboBox Name="mealTypeComboBox" SelectionChanged="MealTypeComboBox_SelectionChanged" Loaded="MealTypeComboBox_Loaded" Margin="5,5" Width="370" materialDesign:HintAssist.Hint ="TYP POSIŁKÓW" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <ComboBox Name="mealTypeComboBox" SelectionChanged="MealTypeComboBox_SelectionChanged" Loaded="MealTypeComboBox_Loaded" Margin="5,5" Width="180" materialDesign:HintAssist.Hint ="TYP POSIŁKÓW" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <ComboBox Name="SubstanceTypeComboBox" SelectionChanged="SubstanceTypeComboBox_SelectionChanged" Loaded="SubstanceTypeComboBox_Loaded" Margin="0,5" Width="180" materialDesign:HintAssist.Hint ="TYP SKŁADNIKA" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
             </WrapPanel>
         </Grid>
 
-        <Grid VerticalAlignment="Bottom" Margin="10,10" Height="390">
-            <oxy:Plot Name="plot">
-                <oxy:LineSeries ItemsSource="{Binding Path=oxyPlotModel}" />
-            </oxy:Plot>
+        <Grid VerticalAlignment="Bottom" Height="420">
+            <oxy:Plot Name="plot1"></oxy:Plot>
         </Grid>
 
         <DockPanel Name="MenuPanel" HorizontalAlignment="Left" Height="550" Margin="0,50,-0.4,0" Visibility="Collapsed" VerticalAlignment="Top" Width="410">
