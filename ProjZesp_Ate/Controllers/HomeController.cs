@@ -143,7 +143,7 @@ namespace ProjZesp_Ate.Controllers
                     statistics.BMI = 1.0 * user.Weight.Value / (userGrowth * userGrowth);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.Write("Error in getting user" + e);
             }
@@ -162,7 +162,7 @@ namespace ProjZesp_Ate.Controllers
                 };
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.Write("Statistics Propper Day Values not found" + e);
             }
@@ -181,39 +181,45 @@ namespace ProjZesp_Ate.Controllers
                     meals = entity.Meals.Where(w => w.FKUserId == userId && w.MealDate > statisticTime && w.MealType == (short)kindOfMeal).ToList();
                 }
 
-                for (int i = daysNum; i >= 0; i--)
+                if (meals.Count > 0)
                 {
-                    DateTime statisticDate = DateTime.Now.AddDays(-1 * i).Date;
-                    List<Meal> tempDayMeals = meals.Where(w => w.MealDate == statisticDate).ToList();
-                    foreach (Meal m in tempDayMeals)
+                    for (int i = daysNum-1; i >= 0; i--)
                     {
-                        statistics.DayFoods.Add(new DayFood());
-                        double fats = 0, kcal = 0, prot = 0, carb = 0;
-                        foreach (Connector con in m.Connectors)
+                        DateTime statisticDate = DateTime.Now.AddDays(-1 * i).Date;
+                        List<Meal> tempDayMeals = meals.Where(w => w.MealDate == statisticDate).ToList();
+                        statistics.DayFoods.Add(new DayFood()
                         {
-                            kcal += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.CaloriesIn100g;
-                            fats += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.FatsIn100g;
-                            prot += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.ProteinIn100g;
-                            carb += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.CarbohydratesIn100g;
-                        }
-
-                        statistics.DayFoods.Last().MealNutritionalVal.Add(new MealNutritionalValues()
-                        {
-                            MealType = (Enums.MealType)m.MealType,
-                            Calories = kcal,
-                            Carbohydrates = carb,
-                            Proteins = prot,
-                            Fats = fats
+                            MealDate = statisticDate,
                         });
+                        foreach (Meal m in tempDayMeals)
+                        {
+                            double fats = 0, kcal = 0, prot = 0, carb = 0;
+                            foreach (Connector con in m.Connectors)
+                            {
+                                kcal += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.CaloriesIn100g;
+                                fats += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.FatsIn100g;
+                                prot += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.ProteinIn100g;
+                                carb += con.ComponentWeigth.GetValueOrDefault() / 100.0 * con.Component.CarbohydratesIn100g;
+                            }
+
+                            statistics.DayFoods.Last().MealNutritionalVal.Add(new MealNutritionalValues()
+                            {
+                                MealType = (Enums.MealType)m.MealType,
+                                Calories = kcal,
+                                Carbohydrates = carb,
+                                Proteins = prot,
+                                Fats = fats
+                            });
+                        }
                     }
+                    return new JavaScriptSerializer().Serialize(statistics);
                 }
-                return new JavaScriptSerializer().Serialize(statistics);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
-            return String.Empty;
+            return new JavaScriptSerializer().Serialize(statistics);
         }
 
         /// <summary>

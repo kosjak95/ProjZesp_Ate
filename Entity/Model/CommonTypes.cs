@@ -52,6 +52,7 @@ namespace Entity.Model
             MealNutritionalVal = new List<MealNutritionalValues>();
         }
         public List<MealNutritionalValues> MealNutritionalVal { get; set; }
+        public DateTime MealDate { get; set; }
     }
 
     public class MealNutritionalValues

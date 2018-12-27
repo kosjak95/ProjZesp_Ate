@@ -67,6 +67,10 @@ namespace WpfProjZespClient
             int tmpIndex = 1;
             foreach (DayFood dayFood in statistics.DayFoods)
             {
+                if(dayFood.MealNutritionalVal.Count == 0)
+                {
+                    continue;
+                }
                 X.Add(tmpIndex);
                 tmpIndex += 100;
                 switch(substancesType)
