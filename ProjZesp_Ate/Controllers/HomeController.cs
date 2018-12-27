@@ -139,7 +139,8 @@ namespace ProjZesp_Ate.Controllers
                 user = entity.Users.Single(s => s.UserId == userId);
                 if (user.Weight.HasValue && user.Growth.HasValue)
                 {
-                    statistics.BMI = 1.0 * user.Weight.Value / (user.Growth.Value * user.Growth.Value);
+                    double userGrowth = user.Growth.Value / 100.0;
+                    statistics.BMI = 1.0 * user.Weight.Value / (userGrowth * userGrowth);
                 }
             }
             catch(Exception e)
@@ -150,7 +151,15 @@ namespace ProjZesp_Ate.Controllers
             try
             {
                 ///DONE: <see cref="Statistics.PropperDayValues"></see> have to bo read from db and set!!!
-                StatisticData statData = entity.StatisticDatas.Where(w => w.WeightFrom < user.Weight && w.WeigthTo > user.Weight).Single();
+                StatisticData statData = entity.StatisticDatas.Where(w => w.WeightFrom < user.Weight && w.WeigthTo > user.Weight && w.Gender == user.Gender).Single();
+                statistics.PropperDayValues = new MealNutritionalValues()
+                {
+                    Calories = statData.DayKcal,
+                    Proteins = statData.DayProtein,
+                    Carbohydrates = statData.DayCarnohydrates,
+                    Fats = statData.DayFats,
+                    MealType = Enums.MealType.Wszystkie
+                };
 
             }
             catch(Exception e)
