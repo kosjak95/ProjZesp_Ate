@@ -25,10 +25,11 @@
         </Rectangle>
 
         <Grid Height="300" Width="340" VerticalAlignment="Bottom" Margin="0,100">
-            <StackPanel VerticalAlignment="Top" Margin="20,20">
-                <ComboBox Name="dishesComboBox" Loaded="DishesComboBox_Loaded" materialDesign:HintAssist.Hint ="WYBIERZ ZJEDZONE PRODUKTY" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-            </StackPanel>
-            <Button VerticalAlignment="Top" Name="AddButton" Click="AddButton_Click"  Margin="70,70" Height="22" Width="80" FontSize="12" Content="Dodaj!"></Button>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Height="80" Width="300">
+                <ComboBox Name="dishesComboBox" Loaded="DishesComboBox_Loaded" SelectionChanged="DishesComboBox_SelectionChanged" materialDesign:HintAssist.Hint ="WYBIERZ ZJEDZONE PRODUKTY" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="298"/>
+                <TextBox Name="massTextBox" Width="180" Visibility="Hidden" materialDesign:HintAssist.Hint ="MASA PRODUKTU" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <Button x:Name="AddButton" Click="AddButton_Click" Margin="20,0" Height="22" Width="80" FontSize="12" Content="Dodaj!"/>
+            </WrapPanel>
             <Grid VerticalAlignment="Top" Margin="20,110" Height="70">
                 <ScrollViewer>
                     <WrapPanel Name="SelectedDishesPanel" Orientation="Horizontal">

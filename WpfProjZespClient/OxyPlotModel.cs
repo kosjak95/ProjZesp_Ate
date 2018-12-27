@@ -101,7 +101,7 @@ namespace WpfProjZespClient
             Xnorm.Add(X.First());
             Xnorm.Add(X.Last());
 
-            AddSeries(OxyPlot.MarkerType.None, chartColors[1], "Użytkownik", X, Y);
+            AddSeries(OxyPlot.MarkerType.Circle, chartColors[1], "Użytkownik", X, Y);
             AddSeries(OxyPlot.MarkerType.None, chartColors[0], "Norma", Xnorm, Ynorm);
         }
 

@@ -72,7 +72,9 @@ namespace WpfProjZespClient.AppWindows
             SelectedDishesPanel.Children.Add(newButton);
 
             int selectedIndex = dishesComboBox.SelectedIndex;
-            addedDishes.Add(dishes.ElementAt(selectedIndex));
+            Dish dish = dishes.ElementAt(selectedIndex);
+            dish.Connectors.Last().ComponentWeigth = double.Parse(massTextBox.Text);
+            addedDishes.Add(dish);
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -107,6 +109,20 @@ namespace WpfProjZespClient.AppWindows
                             "Dodawanie posiłku",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
+        }
+
+        private void DishesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            Dish dish = dishes.Where(w => w.Name == cb.SelectedItem.ToString()).First();
+            if(dish.Connectors.Count != 0)
+            {
+                massTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                massTextBox.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
