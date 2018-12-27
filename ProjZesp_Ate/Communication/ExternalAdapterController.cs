@@ -69,7 +69,7 @@ namespace TechnikiInternetowe.Communication
         }
 
         [HttpGet]
-        [Route("GetStatistics")]
+        [Route("GetStatistics/{UserLogin}/{DaysNum}/{KindOfMeal}")]
         public async Task<string> GetStatistics(string UserLogin, int DaysNum, Enums.MealType KindOfMeal)
         {
             return await Task.Run(() => HomeController.GetStatistics(UserLogin, DaysNum, KindOfMeal));
