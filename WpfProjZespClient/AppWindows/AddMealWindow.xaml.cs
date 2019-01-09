@@ -73,7 +73,8 @@ namespace WpfProjZespClient.AppWindows
 
             int selectedIndex = dishesComboBox.SelectedIndex;
             Dish dish = dishes.ElementAt(selectedIndex);
-            dish.Connectors.Last().ComponentWeigth = double.Parse(massTextBox.Text);
+            if(dish.Connectors.Any())
+                dish.Connectors.Last().ComponentWeigth = double.Parse(massTextBox.Text);
             addedDishes.Add(dish);
         }
 
